@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Create_Tables;
+package Databases;
 
-import static Create_Tables.AddressDB.ADDRESS_TABLE_NAME;
-import static Create_Tables.AddressDB.sqlConn;
-import  Connect.*;
+import Control.CommonConnection;
+import static Databases.AddressDB.ADDRESS_TABLE_NAME;
+import static Databases.AddressDB.sqlConn;
 
 
 /**
@@ -17,7 +17,7 @@ public class CustomerDB {
     
     public static final String CUSTOMER_TABLE_NAME = "3C_CUSTOMERS";
     public static java.sql.Connection sqlConn;
-    SQL sql_access;
+    CommonConnection sql_access;
     public static class TableException extends Exception{
         TableException(String s){
             super(s);
@@ -26,8 +26,8 @@ public class CustomerDB {
     
     public CustomerDB()
     {
-        sql_access = new SQL();
-        sqlConn = DB_Connection.CommonConnection.getSQLConn();
+        sql_access = new CommonConnection();
+        sqlConn = Control.CommonConnection.getSQLConn();
     }
     // Drop Table
     

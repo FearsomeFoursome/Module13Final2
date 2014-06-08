@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Create_Tables;
+package Databases;
 
-import Connect.*;
-import OrderSystem_Classes.Product;
+import Control.CommonConnection;
+import Objects.Product;
 
 
 /**
@@ -16,7 +16,7 @@ public class ProductDB {
     
     public static final String PRODUCT_TABLE_NAME = "3C_PRODUCTS";
     public static java.sql.Connection mysqlConn;
-    MYSQL mysql_access;    
+    CommonConnection mysql_access;    
     public static class TableException extends Exception{
         TableException(String s){
             super(s);
@@ -25,8 +25,8 @@ public class ProductDB {
     
     public ProductDB()
     {
-        mysql_access = new MYSQL();
-        mysqlConn = DB_Connection.CommonConnection.getMSQLConn();
+        mysql_access = new CommonConnection();
+        mysqlConn = Control.CommonConnection.getMSQLConn();
     }
     
    
@@ -94,7 +94,7 @@ public class ProductDB {
           rs = stmt.executeQuery(createString);  
           results = new java.util.ArrayList();
             while (rs.next() == true)
-                results.add(new OrderSystem_Classes.Product (rs.getInt("PROD_ID"), rs.getInt("CATEGORY_ID"), 
+                results.add(new Objects.Product (rs.getInt("PROD_ID"), rs.getInt("CATEGORY_ID"), 
                         rs.getString("PROD_NAME"), rs.getString("PROD_DESC"), rs.getFloat("PROD_PRICE")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Product Table." + "\nDetail: " + e);
@@ -118,8 +118,8 @@ public class ProductDB {
         
         
         try{
-          String createString = "select * from " + Create_Tables.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
-          stmt = Create_Tables.StockItemsDB.mysqlConn.createStatement();
+          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
+          stmt = Databases.StockItemsDB.mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();
                 results = rs.getString("PROD_NAME");  
@@ -145,11 +145,11 @@ public class ProductDB {
         
         
         try{
-          String createString = "select * from " + Create_Tables.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
-          stmt = Create_Tables.StockItemsDB.mysqlConn.createStatement();
+          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
+          stmt = Databases.StockItemsDB.mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();
-          results = new OrderSystem_Classes.Product (rs.getInt("PROD_ID"), rs.getInt("CATEGORY_ID"), 
+          results = new Objects.Product (rs.getInt("PROD_ID"), rs.getInt("CATEGORY_ID"), 
                         rs.getString("PROD_NAME"), rs.getString("PROD_DESC"), rs.getFloat("PROD_PRICE"));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to create requested Product object." + "\nDetail: " + e);
@@ -169,12 +169,12 @@ public class ProductDB {
         java.sql.ResultSet rs = null;
         
         try{
-          String createString = "select * from " + Create_Tables.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID like " + prodID + ";" ;                
-          stmt = Create_Tables.ProductDB.mysqlConn.createStatement();
+          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID like " + prodID + ";" ;                
+          stmt = Databases.ProductDB.mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           results = new java.util.ArrayList();
             while (rs.next() == true)
-                results.add(new OrderSystem_Classes.Product (rs.getInt("PROD_ID"), rs.getInt("CATEGORY_ID"), 
+                results.add(new Objects.Product (rs.getInt("PROD_ID"), rs.getInt("CATEGORY_ID"), 
                         rs.getString("PROD_NAME"), rs.getString("PROD_DESC"), rs.getFloat("PROD_PRICE")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Product ID in Product Table." + "\nDetail: " + e);
@@ -191,12 +191,12 @@ public class ProductDB {
         java.sql.ResultSet rs = null;
         
         try{
-          String createString = "select * from " + Create_Tables.ProductDB.PRODUCT_TABLE_NAME + " ;" ;                
-          stmt = Create_Tables.ProductDB.mysqlConn.createStatement();
+          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " ;" ;                
+          stmt = Databases.ProductDB.mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           results = new java.util.ArrayList();
             while (rs.next() == true)
-                results.add(new OrderSystem_Classes.Product (rs.getInt("PROD_ID"), rs.getInt("CATEGORY_ID"), 
+                results.add(new Objects.Product (rs.getInt("PROD_ID"), rs.getInt("CATEGORY_ID"), 
                         rs.getString("PROD_NAME"), rs.getString("PROD_DESC"), rs.getFloat("PROD_PRICE")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Product Table." + "\nDetail: " + e);
