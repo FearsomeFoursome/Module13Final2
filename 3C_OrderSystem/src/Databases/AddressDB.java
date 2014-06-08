@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Create_Tables;
+package Databases;
 
-import DB_Connection.*;
+import Control.CommonConnection;
 
 
 
@@ -16,7 +16,7 @@ public class AddressDB {
     
     public static final String ADDRESS_TABLE_NAME = "3C_ADDRESS";  
     public static java.sql.Connection sqlConn;
-    DB_Connection.CommonConnection sql_access;
+    Control.CommonConnection sql_access;
     public static class TableException extends Exception{
         TableException(String s){
             super(s);
@@ -26,7 +26,7 @@ public class AddressDB {
     public AddressDB()
     {
         sql_access = new CommonConnection();
-        sqlConn = DB_Connection.CommonConnection.getSQLConn();
+        sqlConn = Control.CommonConnection.getSQLConn();
                 
     }
     
@@ -100,7 +100,7 @@ public class AddressDB {
           rs = stmt.executeQuery(createString);  
           results = new java.util.ArrayList();
             while (rs.next() == true)
-                results.add(new OrderSystem_Classes.Address (rs.getInt("ADDRESS_ID"), rs.getString("ADDRESS1"), 
+                results.add(new Objects.Address (rs.getInt("ADDRESS_ID"), rs.getString("ADDRESS1"), 
                         rs.getString("ADDRESS2"), rs.getString("CITY"), rs.getString("STATE"), 
                         rs.getString("ZIP")));  
         }catch (java.sql.SQLException e){
@@ -119,12 +119,12 @@ public class AddressDB {
         java.sql.ResultSet rs = null;
         
         try{
-          String createString = "select * from " + Create_Tables.AddressDB.ADDRESS_TABLE_NAME + " where CUSTOMER_ID like " + custID + ";" ;                
-          stmt = Create_Tables.AddressDB.sqlConn.createStatement();
+          String createString = "select * from " + Databases.AddressDB.ADDRESS_TABLE_NAME + " where CUSTOMER_ID like " + custID + ";" ;                
+          stmt = Databases.AddressDB.sqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           results = new java.util.ArrayList();
             while (rs.next() == true)
-                results.add(new OrderSystem_Classes.Address (rs.getInt("ADDRESS_ID"), rs.getString("ADDRESS1"), rs.getString("ADDRESS2"), 
+                results.add(new Objects.Address (rs.getInt("ADDRESS_ID"), rs.getString("ADDRESS1"), rs.getString("ADDRESS2"), 
                         rs.getString("CITY"), rs.getString("STATE"), rs.getString("ZIP")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Address Table." + "\nDetail: " + e);

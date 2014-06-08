@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Create_Tables;
+package Databases;
 
-import DB_Connection.*;
+import Control.CommonConnection;
 
 /**
  *
@@ -24,7 +24,7 @@ public class OrdersDB {
     public OrdersDB()
     {
         sql_access = new CommonConnection();
-        sqlConn = DB_Connection.CommonConnection.getSQLConn();
+        sqlConn = Control.CommonConnection.getSQLConn();
     }
     
     // Drop Table

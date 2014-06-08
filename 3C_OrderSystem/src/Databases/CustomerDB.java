@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Create_Tables;
+package Databases;
 
-import static Create_Tables.AddressDB.ADDRESS_TABLE_NAME;
-import static Create_Tables.AddressDB.sqlConn;
-import  DB_Connection.*;
+import Control.CommonConnection;
+import static Databases.AddressDB.ADDRESS_TABLE_NAME;
+import static Databases.AddressDB.sqlConn;
 
 
 /**
@@ -27,7 +27,7 @@ public class CustomerDB {
     public CustomerDB()
     {
         sql_access = new CommonConnection();
-        sqlConn = DB_Connection.CommonConnection.getSQLConn();
+        sqlConn = Control.CommonConnection.getSQLConn();
     }
     // Drop Table
     

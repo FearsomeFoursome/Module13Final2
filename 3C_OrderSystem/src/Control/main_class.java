@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package DB_Connection;
+package Control;
 
-import Create_Tables.AddressDB;
+import Databases.AddressDB;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import Msg_Displays.Menu;
-import OrderSystem_Classes.Order;
+import Objects.Order;
 /**
  *
  * @author Amy Roberts

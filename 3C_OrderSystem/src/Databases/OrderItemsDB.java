@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Create_Tables;
+package Databases;
 
-import DB_Connection.*;
+import Control.CommonConnection;
 
 /**
  *
@@ -24,7 +24,7 @@ public class OrderItemsDB {
     public OrderItemsDB()
     {
         sql_access = new CommonConnection();
-        sqlConn = DB_Connection.CommonConnection.getSQLConn();
+        sqlConn = Control.CommonConnection.getSQLConn();
     }
     
     // Drop Table
@@ -92,7 +92,7 @@ public class OrderItemsDB {
           rs = stmt.executeQuery(createString);  
           results = new java.util.ArrayList();
             while (rs.next() == true)
-                results.add(new OrderSystem_Classes.OrderItem (rs.getInt("ORDER_ITEM_ID"), rs.getInt("ORDER_ID"), 
+                results.add(new Objects.OrderItem (rs.getInt("ORDER_ITEM_ID"), rs.getInt("ORDER_ID"), 
                         rs.getInt("PRODUCT_ID"), rs.getInt("QUANTITY"), rs.getFloat("PROD_PRICE")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Item Database." + "\nDetail: " + e);
@@ -111,12 +111,12 @@ public class OrderItemsDB {
         java.sql.ResultSet rs = null;
         
         try{
-          String createString = "select * from " + Create_Tables.OrderItemsDB.ITEMS_TABLE_NAME + " where ORDER_ITEM_ID like " + itemID + ";" ;                
-          stmt = Create_Tables.OrderItemsDB.sqlConn.createStatement();
+          String createString = "select * from " + Databases.OrderItemsDB.ITEMS_TABLE_NAME + " where ORDER_ITEM_ID like " + itemID + ";" ;                
+          stmt = Databases.OrderItemsDB.sqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           results = new java.util.ArrayList();
             while (rs.next() == true)
-                results.add(new OrderSystem_Classes.OrderItem (rs.getInt("ORDER_ITEM_ID"), rs.getInt("ORDER_ID"), 
+                results.add(new Objects.OrderItem (rs.getInt("ORDER_ITEM_ID"), rs.getInt("ORDER_ID"), 
                         rs.getInt("PRODUCT_ID"), rs.getInt("QUANTITY"), rs.getFloat("PROD_PRICE")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Item Database." + "\nDetail: " + e);

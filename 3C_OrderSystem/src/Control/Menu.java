@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package Msg_Displays;
+package Control;
 
-import Create_Tables.AddressDB;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import OrderSystem_Classes.Order;
-import OrderSystem_Classes.OrderItem;
+import Objects.Order;
+import Objects.OrderItem;
+import Objects.Product;
 import java.util.ArrayList;
 
 /**
@@ -32,9 +32,9 @@ public class Menu {
 	/**
 	 * Presents the main menu options.
 	 */
-	public static void main_menu() 
-        {
-		System.out.println("Main menu:");
+	public static void main_menu()
+	{
+		System.out.println("Main menu:\n");
 		System.out.println("1. Browse catalog");
 		System.out.println("2. View shopping cart");
 		System.out.println("3. Place order");
@@ -47,66 +47,121 @@ public class Menu {
 	 */
 	public static void browse_catalog(Order current_cart)
 	{
-		returntomain = false;
-		cart = current_cart;
-		System.out.println("Full catalog:");
-		
-//		ArrayList<OrderItem> allProducts = Create_Tables.ProductDB.getAllProducts();
-		
-		System.out.println("M. Main menu");
-		System.out.println("X. Exit program\n");
-		System.out.println("Which product are you interested in? Please make a selection: ");
-		
-		//take user input and switch based on choice
 		try
 		{
-			repeat = true;
-			while(repeat = true) 
+			returntomain = false;
+			cart = current_cart;
+			ArrayList<Product> allProducts;
+			Product temp;
+			System.out.println("Full catalog:\n");
+
+			allProducts = Databases.ProductDB.getAllProducts();
+			
+			System.out.println("Product ID - Product Name - Product Price - Stock Status");
+			
+			for(int x = 0; x < allProducts.size(); x++)
 			{
-				input = brin.readLine();
-				input = input.toUpperCase();
-				choice = input.charAt(0);
+				temp = allProducts.get(x);
+				String stockstatus = "";
+				int currentstock = Databases.StockItemsDB.searchforStockQTY(temp.getProductID());
 				
-				System.out.println(choice);
-				switch(choice)
+				if(currentstock == 0)
 				{
-					case '1':
-						
-						//for cases 1-6, get product ID from the product object at the right place
-						//in the array and pass to product_details()
-						//product_details(prodID);
-						break;
-					case '2':
-						//TESTING CASE to actually be able to see product_details
-						product_details(cart, 2);
-						break;
-					case '3':
-						
-						break;
-					case 'M':
-						main_menu();
-						repeat = false;
-						returntomain = true;
-						break;
-					case 'X':
-						System.out.println("Goodbye! Thank you for shopping with us!");
-						repeat = false;
-						System.exit(0);
-						break;
-					default:
-						System.out.println("Sorry, invalid selection. Please select an option from the menu above: ");
-				} //end switch
-				
-				if(returntomain == true)
-				{
-					return;
+					stockstatus = "Out of Stock";
 				} //end if
-				
-			} //end while loop
+				else
+				{
+					stockstatus = "In Stock";
+				} //end else
+				System.out.println((x + 1) + ". " + temp.getProductID() + " - " + temp.getProductName() + 
+						  " - " + temp.getProductPrice() + " - " + stockstatus);
+								
+				} //end for	
+			System.out.println("M. Main menu");
+			System.out.println("X. Exit program\n");
+			System.out.println("Which product are you interested in? Please make a selection: ");
+
+			//take user input and switch based on choice
+			try
+			{
+				repeat = true;
+				while(repeat = true) 
+				{
+					input = brin.readLine();
+					input = input.toUpperCase();
+					choice = input.charAt(0);
+
+					System.out.println(choice);
+					switch(choice)
+					{
+						//for cases 1-9, get product ID from the product object at the right place
+						//in the array and pass to product_details() - we don't use all of these;
+						//case 0 would be "next page"
+						case '1':						
+							temp = allProducts.get(0);
+							product_details(cart, temp.getProductID());
+							break;
+						case '2':
+							//TESTING CASE to actually be able to see product_details
+							product_details(cart, 2);
+							break;
+						case '3':
+							temp = allProducts.get(2);
+							product_details(cart, temp.getProductID());
+							break;
+						case '4':
+							temp = allProducts.get(3);
+							product_details(cart, temp.getProductID());
+							break;
+						case '5':
+							temp = allProducts.get(4);
+							product_details(cart, temp.getProductID());
+							break;						
+						case '6':
+							temp = allProducts.get(5);
+							product_details(cart, temp.getProductID());
+							break;
+						case '7':
+							temp = allProducts.get(6);
+							product_details(cart, temp.getProductID());
+							break;
+						case '8':
+							temp = allProducts.get(7);
+							product_details(cart, temp.getProductID());
+							break;
+						case '9':
+							temp = allProducts.get(8);
+							product_details(cart, temp.getProductID());
+							break;
+						case 'M':
+							main_menu();
+							repeat = false;
+							returntomain = true;
+							break;
+						case 'X':
+							System.out.println("Goodbye! Thank you for shopping with us!");
+							repeat = false;
+							System.exit(0);
+							break;
+						default:
+							System.out.println("Sorry, invalid selection. Please select an option from the menu above: ");
+					} //end switch
+
+					if(returntomain == true)
+					{
+						return;
+					} //end if
+
+				} //end while loop
+			} //end try
+			catch (Exception e)
+			{
+				System.err.println("Error: " + e);
+			} //end catch
 		} //end try
 		catch (Exception e)
 		{
-			System.err.println("Error: " + e);
+			System.out.println("Error: " + e);
 		} //end catch
 	} //end browse_menu
 	
@@ -119,7 +174,10 @@ public class Menu {
 	{
 		returntomain = false;
 		cart = current_cart;
-		System.out.println("Product details:");
+		System.out.println("Product details:\n");
+		
+		Product currentproduct = Databases.ProductDB.getProductbyID(prodID);
+		
 		
 		//reformat and display full product details
 		
@@ -162,7 +220,7 @@ public class Menu {
 					default:
 						if(choice >= '0' && choice <= '9')
 						{
-							//extract prodID, price, prodname from array of product items
+							//extract prodID, price, prodname from the temporary product object
 							//OrderItem item = new OrderItem(prodID, choice, price, prodname);
 							//cart.addOrderItem(item);
 							
@@ -300,7 +358,7 @@ public class Menu {
 		cart = current_cart;
 		System.out.println("Selected cart item:");
 		
-		//product details
+		//product details - extract from OrderItem
 		
 		System.out.println("1. Remove this item from cart");
 		System.out.println("2. Change quantity of item in cart");
