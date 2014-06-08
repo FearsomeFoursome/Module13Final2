@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package DB_Connection;
+package Control;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import OrderSystem_Classes.Order;
-import OrderSystem_Classes.OrderItem;
-import OrderSystem_Classes.Product;
+import Objects.Order;
+import Objects.OrderItem;
+import Objects.Product;
 import java.util.ArrayList;
 
 /**
@@ -55,7 +55,7 @@ public class Menu {
 			Product temp;
 			System.out.println("Full catalog:\n");
 
-			allProducts = Create_Tables.ProductDB.getAllProducts();
+			allProducts = Databases.ProductDB.getAllProducts();
 			
 			System.out.println("Product ID - Product Name - Product Price - Stock Status");
 			
@@ -63,7 +63,7 @@ public class Menu {
 			{
 				temp = allProducts.get(x);
 				String stockstatus = "";
-				int currentstock = Create_Tables.StockItemsDB.searchforStockQTY(temp.getProductID());
+				int currentstock = Databases.StockItemsDB.searchforStockQTY(temp.getProductID());
 				
 				if(currentstock == 0)
 				{
@@ -176,7 +176,7 @@ public class Menu {
 		cart = current_cart;
 		System.out.println("Product details:\n");
 		
-		Product currentproduct = Create_Tables.ProductDB.getProductbyID(prodID);
+		Product currentproduct = Databases.ProductDB.getProductbyID(prodID);
 		
 		
 		//reformat and display full product details

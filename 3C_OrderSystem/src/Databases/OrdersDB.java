@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Create_Tables;
+package Databases;
 
-import Connect.*;
+import Control.CommonConnection;
 
 /**
  *
@@ -14,7 +14,7 @@ public class OrdersDB {
     
     public static final String ORDERS_TABLE_NAME = "3C_ORDERS";   
     public static java.sql.Connection sqlConn;
-    SQL sql_access;
+    CommonConnection sql_access;
     public static class TableException extends Exception{
         TableException(String s){
             super(s);
@@ -23,8 +23,8 @@ public class OrdersDB {
     
     public OrdersDB()
     {
-        sql_access = new SQL();
-        sqlConn = DB_Connection.CommonConnection.getSQLConn();
+        sql_access = new CommonConnection();
+        sqlConn = Control.CommonConnection.getSQLConn();
     }
     
     // Drop Table

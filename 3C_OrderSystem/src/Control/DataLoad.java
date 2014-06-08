@@ -2,9 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package DB_Connection;
+package Control;
 
-import Create_Tables.*;
+import Databases.CustomerDB;
+import Databases.OrderItemsDB;
+import Databases.StockItemsDB;
+import Databases.AddressDB;
+import Databases.ProductDB;
+import Databases.OrdersDB;
 /**
  *
  * @author Bella Belova

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package DB_Connection;
+package Control;
 
 /**
  *
@@ -51,6 +51,10 @@ public class CommonConnection {
             System.err.println(e);
         }
     }
+
+    
+    
+
     
     public  static  java.sql.Connection getSQLConn()
     {
