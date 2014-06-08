@@ -4,7 +4,7 @@
  */
 package Databases;
 
-import Control.CommonConnection;
+import Control.*;
 import static Databases.AddressDB.ADDRESS_TABLE_NAME;
 import static Databases.AddressDB.sqlConn;
 
@@ -26,8 +26,8 @@ public class CustomerDB {
     
     public CustomerDB()
     {
-        sql_access = new CommonConnection();
-        sqlConn = Control.CommonConnection.getSQLConn();
+        sql_access = new CommonConnection(true);
+        sqlConn = sql_access.getConnection();
     }
     // Drop Table
     
