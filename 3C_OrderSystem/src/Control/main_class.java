@@ -23,7 +23,7 @@ public class main_class
 		boolean repeat = true;
 		BufferedReader brin = new BufferedReader(new InputStreamReader(System.in));
 		Order cart = new Order(custID);
-		
+                
 		//initialize database connections
 		//initialize tables
 		//load data to tables
