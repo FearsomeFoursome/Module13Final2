@@ -4,7 +4,7 @@
  */
 package Databases;
 
-import Control.CommonConnection;
+import Control.*;
 
 /**
  *
@@ -23,8 +23,8 @@ public class StockItemsDB {
     
     public StockItemsDB()
     {
-        mysql_access = new CommonConnection();
-        mysqlConn = Control.CommonConnection.getMSQLConn();
+        mysql_access = new CommonConnection(false);
+        mysqlConn = mysql_access.getConnection();
     }
     
     

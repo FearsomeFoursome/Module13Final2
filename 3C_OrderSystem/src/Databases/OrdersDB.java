@@ -4,7 +4,7 @@
  */
 package Databases;
 
-import Control.CommonConnection;
+import Control.*;
 
 /**
  *
@@ -23,8 +23,8 @@ public class OrdersDB {
     
     public OrdersDB()
     {
-        sql_access = new CommonConnection();
-        sqlConn = Control.CommonConnection.getSQLConn();
+        sql_access = new CommonConnection(true);
+        sqlConn = sql_access.getConnection();
     }
     
     // Drop Table

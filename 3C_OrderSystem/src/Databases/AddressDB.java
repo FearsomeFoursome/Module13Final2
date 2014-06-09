@@ -4,7 +4,7 @@
  */
 package Databases;
 
-import Control.CommonConnection;
+import Control.*;
 
 
 
@@ -16,7 +16,7 @@ public class AddressDB {
     
     public static final String ADDRESS_TABLE_NAME = "C_ADDRESS";  
     public static java.sql.Connection sqlConn;
-    Control.CommonConnection sql_access;
+    CommonConnection sql_access;
     public static class TableException extends Exception{
         TableException(String s){
             super(s);
@@ -25,8 +25,8 @@ public class AddressDB {
     
     public AddressDB()
     {
-        sql_access = new CommonConnection();
-        sqlConn = Control.CommonConnection.getSQLConn();
+        sql_access = new CommonConnection(true);
+        sqlConn = sql_access.getConnection();
                 
     }
     

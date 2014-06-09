@@ -4,7 +4,7 @@
  */
 package Databases;
 
-import Control.CommonConnection;
+import Control.*;
 import Objects.Product;
 
 
@@ -25,8 +25,8 @@ public class ProductDB {
     
     public ProductDB()
     {
-        mysql_access = new CommonConnection();
-        mysqlConn = Control.CommonConnection.getMSQLConn();
+        mysql_access = new CommonConnection(false);
+        mysqlConn = mysql_access.getConnection();
     }
     
    

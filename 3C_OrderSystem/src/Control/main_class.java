@@ -14,7 +14,7 @@ import Objects.Order;
  */
 public class main_class 
 {
-	public static void main(String[] args) throws AddressDB.TableException
+	public static void main(String[] args)
 	{
 		//variables
 		final int custID = 1;
@@ -23,13 +23,13 @@ public class main_class
 		boolean repeat = true;
 		BufferedReader brin = new BufferedReader(new InputStreamReader(System.in));
 		Order cart = new Order(custID);
-		
+                
 		//initialize database connections
 		//initialize tables
 		//load data to tables
 		
 		//display main menu
-		System.out.println("Welcome to the store, James!\n");
+		System.out.println("Welcome to the store!\n");
 		Menu.main_menu();
 		//take user input and switch based on choice
 		try

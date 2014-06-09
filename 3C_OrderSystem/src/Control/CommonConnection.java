@@ -28,7 +28,7 @@ public class CommonConnection {
      */
     public  static  java.sql.Connection getSQLConn()
     {
-        return sqlConn;
+        return dbCon;
     }
 
     public static java.sql.Connection getMSQLConn()
