@@ -4,7 +4,6 @@
  */
 package Control;
 
-import Databases.AddressDB;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import Objects.Order;
@@ -25,7 +24,8 @@ public class main_class
 		Order cart = new Order(custID);
                 
 		//initialize database connections
-		
+		CommonConnection.initialize_Connection_MYSQL();
+		CommonConnection.initialize_Connection_SQL();
 		//initialize tables
 		//drop items, then orders, then customers, then address
 		//create address, then customers, then orders, then items
