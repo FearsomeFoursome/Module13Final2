@@ -147,12 +147,15 @@ public class CustomerDB {
             } 
         return results;
         } 
-}
-    
-    /************************************************************************
-    * update the code rs.get
-    *************************************************************************/
-  /*  public static java.util.ArrayList getAllCustomers()
+ 
+    /**
+     * query to retrieve all customers from the C_CUSTOMERS database.
+     * @return
+     * @throws Databases.AddressDB.TableException
+     * @throws Databases.CustomerDB.TableException
+     * @author Bella Belova
+     */
+    public static java.util.ArrayList getAllCustomers()
             throws AddressDB.TableException, TableException{
         java.sql.Statement stmt;
         java.util.ArrayList results = null;
@@ -161,12 +164,14 @@ public class CustomerDB {
         try{
           String createString = "select * from " + CUSTOMER_TABLE_NAME + ";" ;
           stmt = sqlConn.createStatement();
-          rs = stmt.executeQuery(createString);  
+          rs = stmt.executeQuery(createString);
+          Address bill = getAddressbyID(rs.getInt("BILL_ADDRESS"));
+          Address ship = getAddressbyID(rs.getInt("SHIP_ADDRESS"));
           results = new java.util.ArrayList();
             while (rs.next() == true)
-                results.add(new OrderSystem_Classes.Customer (rs.getInt("CUSTOMER_ID"), rs.getString("FIRST_NAME"), 
-                        rs.getString("LAST_NAME"),rs.getString("EMAIL"), rs.getString("PHONE") rs.getAddress("BILL_ADDRESS"), 
-                        rs.getAddress("SHIP_ADDRESS")));  
+                results.add(new Objects.Customer (rs.getInt("CUSTOMER_ID"), rs.getString("FIRST_NAME"), 
+                        rs.getString("LAST_NAME"),rs.getString("EMAIL"), rs.getString("PHONE"), bill, 
+                        ship));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Customer Table." + "\nDetail: " + e);
             } 
@@ -175,24 +180,27 @@ public class CustomerDB {
     
     // Query to search for a Customer by their LAST_NAME
     public static java.util.ArrayList searchCustbyLastName(String lName)
-            throws TableException{
+            throws AddressDB.TableException, TableException{
         java.sql.Statement stmt;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         
         try{
-          String createString = "select * from " + Create_Tables.CustomerDB.CUSTOMER_TABLE_NAME + " where LAST_NAME like '%" + lName + "%';" ;                
-          stmt = Create_Tables.CustomerDB.sqlConn.createStatement();
-          rs = stmt.executeQuery(createString);  
+          String createString = "select * from " + Databases.CustomerDB.CUSTOMER_TABLE_NAME + " where LAST_NAME like '%" + lName + "%';" ;                
+          stmt = Databases.CustomerDB.sqlConn.createStatement();
+          rs = stmt.executeQuery(createString);
+          Address bill = getAddressbyID(rs.getInt("BILL_ADDRESS"));
+          Address ship = getAddressbyID(rs.getInt("SHIP_ADDRESS"));         
           results = new java.util.ArrayList();
             while (rs.next() == true)
-                results.add(new OrderSystem_Classes.Customer (rs.getInt("CUSTOMER_ID"), rs.getString("FIRST_NAME"), 
+
+                results.add(new Objects.Customer (rs.getInt("CUSTOMER_ID"), rs.getString("FIRST_NAME"), 
                         rs.getString("LAST_NAME"), rs.getString("EMAIL"), rs.getString("PHONE"), 
-                        rs.getAddress("BILL_ADDRESS"), rs.getAddress("SHIP_ADDRESS")));  
+                        bill, ship));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Customer Table." + "\nDetail: " + e);
             } 
         return results;
         }
-   */ 
+} 
     
