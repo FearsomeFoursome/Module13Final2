@@ -6,11 +6,13 @@
 
 package Control;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import Objects.Address;
+import Objects.Customer;
 import Objects.Order;
 import Objects.OrderItem;
 import Objects.Product;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -172,82 +174,116 @@ public class Menu {
 	 */
 	public static void product_details(Order current_cart, int prodID)
 	{
-		returntomain = false;
-		cart = current_cart;
-		System.out.println("Product details:\n");
-		
-		Product currentproduct = Databases.ProductDB.getProductbyID(prodID);
-		
-		
-		//reformat and display full product details
-		
-		System.out.println("B. Browse product catalog");
-		System.out.println("C. View shopping cart");
-		System.out.println("M. Main menu");
-		System.out.println("X. Exit program\n");
-		System.out.println("Please enter how many of this product you would like to order, or make a menu selection.");
-		System.out.println("What is your selection?");
-		
-		//take user input and switch based on choice
 		try
 		{
-			repeat = true;
-			while(repeat = true) 
+			returntomain = false;
+			cart = current_cart;
+			System.out.println("Product details:\n");
+			
+			//reformat and display full product details
+			Product currentproduct = Databases.ProductDB.getProductbyID(prodID);
+			System.out.println("Product ID: " + currentproduct.getProductID());
+			System.out.println("Product name: " + currentproduct.getProductName());
+			System.out.println("Product price: " + currentproduct.getProductPrice());
+			System.out.println("Product description:");
+			System.out.println(currentproduct.getProductDesc());
+			
+			String stockstatus;
+			int currentstock = Databases.StockItemsDB.searchforStockQTY(currentproduct.getProductID());
+				
+			if(currentstock == 0)
 			{
-				input = brin.readLine();
-				input = input.toUpperCase();
-				choice = input.charAt(0);
-				
-				System.out.println(choice);
-				switch(choice)
+				stockstatus = "out of stock";
+			} //end if
+			else
+			{
+				stockstatus = "in stock";
+			} //end else
+			
+			System.out.println("This product is currently " + stockstatus + '\n');
+			
+			System.out.println("B. Browse product catalog");
+			System.out.println("C. View shopping cart");
+			System.out.println("M. Main menu");
+			System.out.println("X. Exit program\n");
+			System.out.println("Please enter how many of this product you would like to order, or make a menu selection.");
+			System.out.println("What is your selection?");
+
+			//take user input and switch based on choice
+			try
+			{
+				repeat = true;
+				while(repeat = true) 
 				{
-					case 'B':
-						browse_catalog(cart);
-						break;
-					case 'C':
-						view_cart(cart);
-						break;
-					case 'M':
-						main_menu();
-						repeat = false;
-						returntomain = true;
-						break;
-					case 'X':
-						System.out.println("Goodbye! Thank you for shopping with us!");
-						repeat = false;
-						System.exit(0);
-						break;
-					default:
-						if(choice >= '0' && choice <= '9')
-						{
-							//extract prodID, price, prodname from the temporary product object
-							//OrderItem item = new OrderItem(prodID, choice, price, prodname);
-							//cart.addOrderItem(item);
-							
-							System.out.println(choice + " products added to order. Please make a menu selection:");
-							System.out.println("B. Browse product catalog");
-							System.out.println("C. View shopping cart");
-							System.out.println("M. Main menu");
-							System.out.println("X. Exit program\n");
-						} //end if
-						else
-						{
-							System.out.println("Sorry, invalid selection. Please select an option from the menu above or a number of products to order: ");
-						}					
-						
-				} //end switch
-				
-				if(returntomain == true)
-				{
-					return;
-				} //end if
-				
-			} //end while loop
+					input = brin.readLine();
+					input = input.toUpperCase();
+					choice = input.charAt(0);
+
+					System.out.println(choice);
+					switch(choice)
+					{
+						case 'B':
+							browse_catalog(cart);
+							break;
+						case 'C':
+							view_cart(cart);
+							break;
+						case 'M':
+							main_menu();
+							repeat = false;
+							returntomain = true;
+							break;
+						case 'X':
+							System.out.println("Goodbye! Thank you for shopping with us!");
+							repeat = false;
+							System.exit(0);
+							break;
+						default:
+							if(choice >= '0' && choice <= '9')
+							{
+								if(stockstatus.equals("out of stock"))
+								{
+									System.out.println("Sorry, this product is out of stock and cannot be ordered. Please make a menu selection:");
+								} //end if
+								else
+								{
+									//extract prodID, price, prodname from the temporary product object and create new orderitem object
+									OrderItem item = new OrderItem(currentproduct.getProductID(), choice, currentproduct.getProductPrice(), currentproduct.getProductName());
+									cart.addOrderItem(item);
+
+									System.out.println(choice + " products added to order. Please make a menu selection:");
+								} //end else
+								
+								System.out.println("B. Browse product catalog");
+								System.out.println("C. View shopping cart");
+								System.out.println("M. Main menu");
+								System.out.println("X. Exit program\n");
+								System.out.println("What is your selection?");
+							} //end if
+							else
+							{
+								System.out.println("Sorry, invalid selection. Please select an option from the menu above or a number of products to order: ");
+							}					
+
+					} //end switch
+
+					if(returntomain == true)
+					{
+						return;
+					} //end if
+
+				} //end while loop
+			} //end try
+			catch (Exception e)
+			{
+				System.err.println("Error: " + e);
+			} //end catch
 		} //end try
 		catch (Exception e)
 		{
 			System.err.println("Error: " + e);
-		} //end catch
+		} //end catch	
+			
 	} //end product_details
 	
 	
@@ -261,7 +297,7 @@ public class Menu {
 		cart = current_cart;
 		System.out.println("Your cart:\n");
 		
-		//copy arraylist out of cart for use
+		//create temporary pointer to arraylist in cart object for use
 		ArrayList<OrderItem> orderItemList = cart.getOrderItems();
 		
 		//set cart_empty flag and present appropriate message if cart is empty
@@ -301,12 +337,47 @@ public class Menu {
 				choice = input.charAt(0);
 				
 				System.out.println(choice);
+				OrderItem temp;
 				switch(choice)
 				{
+					//for numerical cases: create a pointer variable to indicate which
+					//object in the cart was selected and pass to modify_cart_item
+					//case 0 would be "next page"
 					case '1':
-						//pull data from array and pass to modify_cart_item
-						//use productID to pass to modify in case they want to remove
-						//modify_cart_item(productid);
+						temp = orderItemList.get(0);
+						modify_cart_item(cart, temp);
+						break;
+					case '2':
+						temp = orderItemList.get(1);
+						modify_cart_item(cart, temp);
+						break;
+					case '3':
+						temp = orderItemList.get(2);
+						modify_cart_item(cart, temp);
+						break;
+					case '4':
+						temp = orderItemList.get(3);
+						modify_cart_item(cart, temp);
+						break;
+					case '5':
+						temp = orderItemList.get(4);
+						modify_cart_item(cart, temp);
+						break;
+					case '6':
+						temp = orderItemList.get(5);
+						modify_cart_item(cart, temp);
+						break;
+					case '7':
+						temp = orderItemList.get(6);
+						modify_cart_item(cart, temp);
+						break;
+					case '8':
+						temp = orderItemList.get(7);
+						modify_cart_item(cart, temp);
+						break;
+					case '9':
+						temp = orderItemList.get(8);
+						modify_cart_item(cart, temp);
 						break;
 					case 'P':
 						//confirm the cart is not empty before calling place_order
@@ -352,13 +423,19 @@ public class Menu {
 	 * Presents options which allow modifying the quantity of an ordered item or removing it from the cart.
 	 * @param orderItemID 
 	 */
-	public static void modify_cart_item(Order current_cart, int productID)
+	public static void modify_cart_item(Order current_cart, OrderItem current_item)
 	{
 		returntomain = false;
 		cart = current_cart;
-		System.out.println("Selected cart item:");
+		System.out.println("Selected cart item:\n");
 		
-		//product details - extract from OrderItem
+		OrderItem currentitem = current_item;
+		
+		System.out.println("Product ID: " + currentitem.getProductID());
+		System.out.println("Product name: " + currentitem.getProductName());
+		System.out.println("Price per unit: $" + currentitem.getProductPrice());
+		System.out.println("Quantity in cart: " + currentitem.getProductQuant());
+		System.out.println("Total price for this quantity: $" + (currentitem.getProductPrice() * currentitem.getProductQuant()) + '\n');		
 		
 		System.out.println("1. Remove this item from cart");
 		System.out.println("2. Change quantity of item in cart");
@@ -380,8 +457,8 @@ public class Menu {
 				switch(choice)
 				{
 					case '1':
-						//remove product from array
-						//cart.removeOrderItem(prodID);
+						//remove product from cart
+						cart.removeOrderItem(currentitem.getProductID());
 						System.out.println("This item has been removed from your cart.");
 						break;
 					case '2':
@@ -394,7 +471,7 @@ public class Menu {
 							if(quant >= 0 && quant <= 9)
 							{
 								//update quantity of item
-								//cart.changeQuantity(prodID, quant);
+								cart.changeQuantity(currentitem.getProductID(), quant);
 								System.out.println("You now have " + quant + " of this item in your cart.");	
 								i = false;
 							} //end if
@@ -443,7 +520,7 @@ public class Menu {
 		returntomain = false;
 		boolean cart_empty = false;
 		cart = current_cart;
-		System.out.println("Place order:");
+		System.out.println("Place order:\n");
 		
 		//copy arraylist out of cart for use
 		ArrayList<OrderItem> orderItemList = cart.getOrderItems();
@@ -535,9 +612,36 @@ public class Menu {
 	{
 		returntomain = false;
 		cart = current_cart;
-		System.out.println("Confirm order:");
+		System.out.println("Confirm order information:\n");
 		
-		//format billing/shipping addresses
+		//get customer with ID in cart
+		Customer cust = new Customer();//getcust( cart.getCustomerID());
+		Address bill = cust.getBilling();
+		Address ship = cust.getShipping();
+		
+		System.out.println("Billing address:");
+		System.out.println(bill.getAddress1());
+		
+		//test to see if Address 2 is empty
+		String temp = bill.getAddress2();
+		if(!temp.equals(""))
+		{
+			System.out.println(bill.getAddress2());
+		} //end if
+		
+		System.out.println(bill.getCity() + ", " + bill.getState() + "  " + bill.getZIP() + '\n');
+		
+		System.out.println("Shipping address:");
+		System.out.println(ship.getAddress1());
+		
+		//test to see if Address 2 is empty
+		temp = ship.getAddress2();
+		if(!temp.equals(""))
+		{
+			System.out.println(ship.getAddress2());
+		} //end if
+		
+		System.out.println(ship.getCity() + ", " + ship.getState() + "  " + ship.getZIP() + '\n');
 		
 		System.out.println("1. Place order");
 		System.out.println("2. Correct this information (NOT YET IMPLEMENTED)");
