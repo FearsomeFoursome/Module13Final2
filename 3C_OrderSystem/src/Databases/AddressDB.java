@@ -16,8 +16,7 @@ import Objects.Address;
  * AddressDB class to drop table, create table, insert & query Address database.
  * @author Bella Belova
  */
-public class AddressDB {
-    
+public class AddressDB { 
     // declare AddressDB variables
     static final String ADDRESS_TABLE_NAME = "C_ADDRESS";  
     private static java.sql.Connection sqlConn;
@@ -29,7 +28,7 @@ public class AddressDB {
     
     public AddressDB()
     {
-        sqlConn = CommonConnection.getSQLConn();           
+    sqlConn = CommonConnection.getSQLConn();           
     }
     
     /**
@@ -49,8 +48,8 @@ public class AddressDB {
          } catch (java.sql.SQLException e) {
              if (!(e.getMessage().contains("Unknown")))
                 System.err.println(e); 
+            }
         }
-    }
     
     /**
      * function to Create the Address Table.
@@ -75,8 +74,8 @@ public class AddressDB {
             stmt.executeUpdate(createString);
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create " + ADDRESS_TABLE_NAME + "\nDetail: " + e);
-        }        
-    }
+            }        
+        }
 
     /**
      * function to Insert AddressDB data.
@@ -89,12 +88,10 @@ public class AddressDB {
      * @author Bella Belova
      */
     public static void createAddress(String Addr1, String Addr2, 
-                                        String Addr_City, String Addr_State, String Addr_Zip) 
-        throws TableException{
-    
-    java.sql.Statement stmt;
+                       String Addr_City, String Addr_State, String Addr_Zip) throws TableException{
+        java.sql.Statement stmt;
+        
         try{
-
           String createString = "INSERT " + ADDRESS_TABLE_NAME + 
                   " (ADDRESS1, ADDRESS2, "
                   + "CITY, STATE, ZIP) VALUES('" + Addr1 + "', '" + Addr2 + "', '" + 
@@ -103,8 +100,8 @@ public class AddressDB {
           stmt.executeUpdate(createString);  
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create a new Address in the Database." + "\nDetail: " + e);
+            }
         }
-    }
 
     /**
      * query to retrieve an Address Object by ADDRESS_ID.
@@ -129,9 +126,9 @@ public class AddressDB {
                         rs.getString("ZIP"));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to retrieve requested Address object." + "\nDetail: " + e);
-        } 
+            } 
         return results;
-    }      
+        }      
     
     /**
      * query to return all Address records from the Address database in an Array List.
@@ -141,9 +138,7 @@ public class AddressDB {
      */
     public static java.util.ArrayList getAllAddresses()
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         
@@ -158,9 +153,9 @@ public class AddressDB {
                         rs.getString("ZIP")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Address Table." + "\nDetail: " + e);
-        }
+            }
         return results;
-    }
+        }
 
     /**
      * Query to retrieve a single Address record from Address database by ADDRESS_ID.
@@ -171,9 +166,7 @@ public class AddressDB {
      */
     public static java.util.ArrayList searchAddbyCustomerID(int addID)
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         
@@ -187,8 +180,8 @@ public class AddressDB {
                         rs.getString("CITY"), rs.getString("STATE"), rs.getString("ZIP")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Address Table." + "\nDetail: " + e);
-        }
+            }
         return results;
-    }
+        }
    
 }

@@ -27,7 +27,7 @@ public class OrdersDB {
     
     public OrdersDB()
     {
-        sqlConn = CommonConnection.getSQLConn();
+    sqlConn = CommonConnection.getSQLConn();
     }
     
     /**
@@ -36,7 +36,7 @@ public class OrdersDB {
      * @author Bella Belova
      */
     public static void droptable()throws TableException{
-		 sqlConn = CommonConnection.getSQLConn();
+        sqlConn = CommonConnection.getSQLConn();
         String createString;    
         java.sql.Statement stmt;
         
@@ -44,11 +44,11 @@ public class OrdersDB {
             createString = "drop table " + ORDERS_TABLE_NAME + ";";
             stmt = sqlConn.createStatement();
             stmt.executeUpdate(createString);
-         } catch (java.sql.SQLException e) {
+        } catch (java.sql.SQLException e) {
              if (!(e.getMessage().contains("Unknown")))
                 System.err.println(e); 
-        }
-	 }
+            }
+	}
     
     /**
      * function to Create the C_ORDERS table
@@ -72,8 +72,8 @@ public class OrdersDB {
             stmt.executeUpdate(createString);
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create " + ORDERS_TABLE_NAME + "\nDetail: " + e);
-        }        
-    }
+            }        
+        }
 
     /**
      * function to Insert ORDER row data into the C_ORDERS database.
@@ -86,11 +86,10 @@ public class OrdersDB {
      * @author Bella Belova
      */
     public static void createOrder(int Ord_ID, int Cust_ID, String Fin, String Ord_Date, float Ord_Total) 
-        throws TableException{
-    
-    java.sql.Statement stmt;
+            throws TableException{
+        java.sql.Statement stmt;
+        
         try{
-
           String createString = "SET IDENTITY_INSERT " + ORDERS_TABLE_NAME + " on insert into " + ORDERS_TABLE_NAME + 
                   " (ORDER_ID, CUSTOMER_ID, FINANCIAL, ORDER_DATE, ORDER_TOTAL ) VALUES(" + Ord_ID + ", "
                    + Cust_ID + ", '" + Fin + "', '" + Ord_Date  + "', " + Ord_Total +  " );" ;
@@ -98,8 +97,8 @@ public class OrdersDB {
           stmt.executeUpdate(createString);  
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create a new Order in the Database." + "\nDetail: " + e);
+            }
         }
-    }
 
     /***************************************************************************
      * DATABASE QUERY FUNCTIONS
@@ -114,9 +113,7 @@ public class OrdersDB {
      */
     public static java.util.ArrayList getAllOrders()
             throws OrdersDB.TableException, TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         /*
@@ -130,9 +127,9 @@ public class OrdersDB {
                         rs.getString("FINANCIAL"), rs.getString("ORDER_DATE"), rs.getFloat("ORDER_TOTAL")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Order Database." + "\nDetail: " + e);
-        }*/
+            }*/
         return results;
-    }  
+        }  
         
     /**
      * query for all Orders in the C_ORDERS database by ORDER_ID
@@ -143,9 +140,7 @@ public class OrdersDB {
      */
     public static java.util.ArrayList searchOrdersbyOrderID(int orderID)
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         /*
@@ -159,8 +154,8 @@ public class OrdersDB {
                         rs.getString("FINANCIAL"), rs.getString("ORDER_DATE"), rs.getFloat("ORDER_TOTAL")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Order Database." + "\nDetail: " + e);
-        } */
+            } */
         return results;
-    }
+        }
     
 }

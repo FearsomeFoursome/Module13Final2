@@ -27,7 +27,7 @@ public class OrderItemsDB {
     
     public OrderItemsDB()
     {
-        sqlConn = CommonConnection.getSQLConn();
+    sqlConn = CommonConnection.getSQLConn();
     }
     
     /**
@@ -36,7 +36,7 @@ public class OrderItemsDB {
      * @author Bella Belova
      */
     public static void droptable()throws TableException{
-		 sqlConn = CommonConnection.getSQLConn();
+        sqlConn = CommonConnection.getSQLConn();
         String createString;    
         java.sql.Statement stmt;
         
@@ -87,12 +87,10 @@ public class OrderItemsDB {
      * @author Bella Belova
      */
     public static void createItems(int Ord_Item_ID, int Ord_ID, int Prod_ID, 
-                                                    int QTY, float Prod_Price) 
-        throws TableException{
-    
-    java.sql.Statement stmt;
+                                  int QTY, float Prod_Price) throws TableException{
+        java.sql.Statement stmt;
+        
         try{
-
           String createString = "SET IDENTITY_INSERT " + ITEMS_TABLE_NAME + " on insert into " + ITEMS_TABLE_NAME + 
                   " (ORDER_ITEM_ID, ORDER_ID, PRODUCT_ID, QUANTITY, PROD_PRICE ) VALUES(" + Ord_Item_ID + ", "
                    + Ord_ID + ", " + Prod_ID + ", " + QTY  + "," + Prod_Price + " );" ;
@@ -100,8 +98,8 @@ public class OrderItemsDB {
           stmt.executeUpdate(createString);  
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create a new Address in the Database." + "\nDetail: " + e);
+            }
         }
-    }
 
     /***************************************************************************
      * DATABASE QUERY FUNCTIONS
@@ -116,9 +114,7 @@ public class OrderItemsDB {
      */
     public static java.util.ArrayList getAllItems()
         throws OrderItemsDB.TableException, TableException{
-            int id; String fn; String ln;
             java.sql.Statement stmt;
-            Object p = null;
             java.util.ArrayList results = null;
             java.sql.ResultSet rs = null;
         
@@ -132,7 +128,7 @@ public class OrderItemsDB {
                         rs.getInt("PRODUCT_ID"), rs.getInt("QUANTITY"), rs.getFloat("PROD_PRICE")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Item Database." + "\nDetail: " + e);
-        }
+            }
         return results;
         }
 
@@ -145,9 +141,7 @@ public class OrderItemsDB {
      */
     public static java.util.ArrayList searchItemsbyItemID(int itemID)
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         
@@ -161,7 +155,7 @@ public class OrderItemsDB {
                         rs.getInt("PRODUCT_ID"), rs.getInt("QUANTITY"), rs.getFloat("PROD_PRICE")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Item Database." + "\nDetail: " + e);
-        }
+            }
         return results;
         }
                

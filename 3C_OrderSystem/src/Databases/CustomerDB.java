@@ -31,7 +31,7 @@ public class CustomerDB {
     
     public CustomerDB()
     {
-        sqlConn = CommonConnection.getSQLConn();
+    sqlConn = CommonConnection.getSQLConn();
     }
 
     /**
@@ -51,8 +51,8 @@ public class CustomerDB {
          } catch (java.sql.SQLException e) {
              if (!(e.getMessage().contains("Unknown")))
                 System.err.println(e); 
+                }
         }
-    }
     
     /**
      * function to Create the C_CUSTOMERS table.
@@ -82,8 +82,8 @@ public class CustomerDB {
             stmt.executeUpdate(createString);
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create " + CUSTOMER_TABLE_NAME + "\nDetail: " + e);
-        }        
-    }    
+            }        
+        }    
     
     /**
     * function to insert Customer row data into the C_CUSTOMER database.
@@ -97,9 +97,9 @@ public class CustomerDB {
     * @author Bella Belova
      */
     public static void createCustomer(String FName, String LName, int BillAddr, 
-                                        int ShipAddr, String EMail, String PhNbr) 
-        throws TableException{    
-            java.sql.Statement stmt;
+                             int ShipAddr, String EMail, String PhNbr) throws TableException{    
+        java.sql.Statement stmt;
+            
         try{
             String createString = "INSERT INTO " + CUSTOMER_TABLE_NAME + 
                   " (FIRST_NAME, LAST_NAME, BILL_ADDRESS, SHIP_ADDRESS, "
@@ -109,8 +109,8 @@ public class CustomerDB {
             stmt.executeUpdate(createString);  
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create a new Customer in the Database." + "\nDetail: " + e);
-        }
-    } 
+            }
+        } 
 
     /***************************************************************************
      * DATABASE QUERY FUNCTIONS
@@ -144,9 +144,9 @@ public class CustomerDB {
           results = new Objects.Customer (cID, fName, lName, eMail, phone, bill, ship); 
         }catch (Exception e){
             throw new TableException("Unable to retrieve Customer object." + "\nDetail: " + e);
-        } 
+            } 
         return results;
-    } 
+        } 
 }
     
     /************************************************************************
@@ -154,13 +154,10 @@ public class CustomerDB {
     *************************************************************************/
   /*  public static java.util.ArrayList getAllCustomers()
             throws AddressDB.TableException, TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
-        
-        
+           
         try{
           String createString = "select * from " + CUSTOMER_TABLE_NAME + ";" ;
           stmt = sqlConn.createStatement();
@@ -172,16 +169,14 @@ public class CustomerDB {
                         rs.getAddress("SHIP_ADDRESS")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Customer Table." + "\nDetail: " + e);
-        } 
+            } 
         return results;
-    }
+        }
     
     // Query to search for a Customer by their LAST_NAME
     public static java.util.ArrayList searchCustbyLastName(String lName)
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         
@@ -196,8 +191,8 @@ public class CustomerDB {
                         rs.getAddress("BILL_ADDRESS"), rs.getAddress("SHIP_ADDRESS")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Customer Table." + "\nDetail: " + e);
-        } 
+            } 
         return results;
-    }
+        }
    */ 
     

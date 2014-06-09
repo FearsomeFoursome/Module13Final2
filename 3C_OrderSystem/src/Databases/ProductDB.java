@@ -85,12 +85,11 @@ public class ProductDB {
      * @param Prod_Price price in U.S. dollars of the Product
      * @throws Databases.ProductDB.TableException 
      */
-    public static void createProduct(int Prod_ID, int Categ_ID, String Prod_Name, String Prod_Desc, float Prod_Price) 
-        throws TableException{
-    
-    java.sql.Statement stmt;
+    public static void createProduct(int Prod_ID, int Categ_ID, String Prod_Name, 
+                           String Prod_Desc, float Prod_Price) throws TableException{
+        java.sql.Statement stmt;
+        
         try{
-
           String createString = "insert into " + PRODUCT_TABLE_NAME + 
                   " (PROD_ID, CATEGORY_ID, PROD_NAME, PROD_DESC, PROD_PRICE ) VALUES(" + Prod_ID + ", " + 
                   Categ_ID + ", '" + Prod_Name + "', '" + Prod_Desc  + "', " + Prod_Price + " );" ;
@@ -114,9 +113,7 @@ public class ProductDB {
      */
     public static java.util.ArrayList getAllProducts()
             throws ProductDB.TableException, TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         
@@ -127,12 +124,12 @@ public class ProductDB {
           results = new java.util.ArrayList();
             while (rs.next() == true)
                 results.add(new Objects.Product (rs.getInt("PROD_ID"), rs.getInt("CATEGORY_ID"), 
-                        rs.getString("PROD_NAME"), rs.getString("PROD_DESC"), rs.getFloat("PROD_PRICE")));  
+                    rs.getString("PROD_NAME"), rs.getString("PROD_DESC"), rs.getFloat("PROD_PRICE")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Product Table." + "\nDetail: " + e);
-        }
+            }
         return results;        
-    }
+        }
         
     /**
     * Query to search for and return a single product from PRODUCT table.
@@ -194,9 +191,7 @@ public class ProductDB {
      */
      public static java.util.ArrayList searchProductsbyProductID(String prodID)
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         
@@ -222,9 +217,7 @@ public class ProductDB {
       */
     public static java.util.ArrayList searchALLProducts()
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         

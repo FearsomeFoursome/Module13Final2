@@ -27,13 +27,16 @@ public class StockItemsDB {
     
     public StockItemsDB()
     {
-        mysqlConn = CommonConnection.getMSQLConn();
+    mysqlConn = CommonConnection.getMSQLConn();
     }
     
-    
-    // Drop C_STOCK_ITEMS Table
+    /**
+     * function to Drop the C_STOCK_ITEMS table.
+     * @throws Databases.StockItemsDB.TableException
+     * @author Bella Belova
+     */
     public static void droptable()throws TableException{
-		 mysqlConn = CommonConnection.getMSQLConn();
+        mysqlConn = CommonConnection.getMSQLConn();
         String createString;    
         java.sql.Statement stmt;
         
@@ -41,17 +44,21 @@ public class StockItemsDB {
             createString = "drop table " + STOCK_ITEMS_TABLE_NAME + ";";
             stmt = mysqlConn.createStatement();
             stmt.executeUpdate(createString);
-         } catch (java.sql.SQLException e) {
+        } catch (java.sql.SQLException e) {
              if (!(e.getMessage().contains("Unknown")))
                 System.err.println(e); 
-        }
-	 }
-	 
-	 public static void createtable() throws TableException{
-		  
-		  String createString;    
+            }
+	}
+    
+    /**
+     * function to Create the C_STOCK_ITEMS table.
+     * @throws Databases.StockItemsDB.TableException
+     * @author Bella Belova
+     */
+    public static void createtable() throws TableException{		  
+	String createString;    
         java.sql.Statement stmt;
-    //Create the C_STOCK_ITEMS Table        
+        
         try{
             createString =
             "create table " + STOCK_ITEMS_TABLE_NAME + " " + 
@@ -64,18 +71,25 @@ public class StockItemsDB {
             stmt.executeUpdate(createString);
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create " + STOCK_ITEMS_TABLE_NAME + "\nDetail: " + e);
+            }
         }
-    }
-        
-                  //Insert Items data
-    /*************************************************************************
-    * needs work! discuss with Amy
-    **************************************************************************/
-    
+
+    /***************************************************************************
+     * DATABASE QUERY FUNCTIONS
+    ***************************************************************************/     
+   
+    /**
+     * function to Insert Items into the C_STOCK_ITEMS database.
+     * @param Prod_ID identity code for the Product
+     * @param Prod_Name name of the Product
+     * @param Stock_QTY quantity in stock
+     * @throws Databases.StockItemsDB.TableException
+     * @author Bella Belova
+     */
     public static void createItems(int Prod_ID, String Prod_Name, int Stock_QTY) 
-        throws TableException{
-    
-    java.sql.Statement stmt;
+            throws TableException{
+        java.sql.Statement stmt;
+        
         try{
 
           String createString = "insert into " + STOCK_ITEMS_TABLE_NAME + 
@@ -84,13 +98,19 @@ public class StockItemsDB {
           stmt.executeUpdate(createString);  
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create a new Order in the Database." + "\nDetail: " + e);
+            }
         }
-    }
-        public java.util.ArrayList getAllStocks()
+    
+    /**
+     * query for all Stock Items in the Product Inventory
+     * @return an Array List of Products in stock
+     * @throws Databases.StockItemsDB.TableException
+     * @throws Databases.StockItemsDB.TableException 
+     * @author Bella Belova
+     */
+    public java.util.ArrayList getAllStocks()
             throws StockItemsDB.TableException, TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         
@@ -106,23 +126,18 @@ public class StockItemsDB {
             throw new TableException("Unable to search Quantity in Stock_Items Table." + "\nDetail: " + e);
         } */
         return results;
-    }
-
-    /***************************************************************************
-     * DATABASE QUERY FUNCTIONS
-    ***************************************************************************/        
+    }       
         
         /**
          * Query to search Stock Items Database for current Stock Quantity by PROD_ID.
          * @param prodID The product identification number
          * @return Number of units in stock for item
-         * @throws Create_Tables.StockItemsDB.TableException 
+         * @throws Create_Tables.StockItemsDB.TableException
+         * @author Scott Young
          */
     public static int searchforStockQTY(int prodID)
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         int results = 0;
         java.sql.ResultSet rs = null;
         
@@ -138,6 +153,5 @@ public class StockItemsDB {
         } 
         return results;
     }
-
     
 }
