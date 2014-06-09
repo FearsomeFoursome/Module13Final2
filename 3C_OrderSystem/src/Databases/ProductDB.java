@@ -14,7 +14,7 @@ import Objects.Product;
  */
 public class ProductDB {
     
-    public static final String PRODUCT_TABLE_NAME = "3C_PRODUCTS";
+    public static final String PRODUCT_TABLE_NAME = "C_PRODUCTS";
     public static java.sql.Connection mysqlConn;
     CommonConnection mysql_access;    
     public static class TableException extends Exception{
@@ -54,8 +54,7 @@ public class ProductDB {
             "PROD_NAME varchar(40) NOT NULL, " +
             "PROD_DESC varchar(40) NOT NULL, " +
             "PROD_PRICE decimal(12,2) NOT NULL, " + 
-            "PRIMARY KEY (PROD_ID), " + 
-            "FOREIGN KEY (PROD_ID) REFERENCES 3C_STOCK_ITEMS (PROD_ID))";
+            "PRIMARY KEY (PROD_ID))";
             stmt = mysqlConn.createStatement();
             stmt.executeUpdate(createString);
         } catch (java.sql.SQLException e) {
@@ -63,7 +62,7 @@ public class ProductDB {
         }        
     }
 
-     //Insert new product into 3C_PRODUCTS database
+     //Insert new product into C_PRODUCTS database
     public static void createProduct(int Prod_ID, int Categ_ID, String Prod_Name, String Prod_Desc, float Prod_Price) 
         throws TableException{
     
@@ -106,7 +105,7 @@ public class ProductDB {
          * Query to search for and return a single product from PRODUCT table.
          * @param prodID Product identification code
          * @return A Product Name from the PRODUCT table
-         * @throws Create_Tables.ProductDB.TableException 
+         * @throws Databases.ProductDB.TableException 
          */
     public static String searchforProductbyID(int prodID)
             throws TableException{
@@ -133,7 +132,7 @@ public class ProductDB {
      * search PRODUCT database by prodID, return Product object.
      * @param prodID Product identification number
      * @return A Product Object with all column/row data
-     * @throws Create_Tables.ProductDB.TableException 
+     * @throws Databases.ProductDB.TableException 
      */
     public static Product getProductbyID(int prodID)
             throws TableException{
@@ -181,7 +180,7 @@ public class ProductDB {
         }
         return results;
  }  
-    // Query for all Products in the 3C_PRODUCTS database    
+    // Query for all Products in the C_PRODUCTS database    
     public static java.util.ArrayList searchALLProducts()
             throws TableException{
         int id; String fn; String ln;
