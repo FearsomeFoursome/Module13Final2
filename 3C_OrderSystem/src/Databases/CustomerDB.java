@@ -24,12 +24,12 @@ public class CustomerDB {
     
     public CustomerDB()
     {
-    //    sql_access = new CommonConnection(true);
         sqlConn = CommonConnection.getSQLConn();
     }
-    // Drop Table
+    // Drop Customer Table
     
-    public static void reset()throws TableException{
+    public static void droptable()throws TableException{
+        sqlConn = CommonConnection.getSQLConn();
         String createString;    
         java.sql.Statement stmt;
         
@@ -41,9 +41,14 @@ public class CustomerDB {
              if (!(e.getMessage().contains("Unknown")))
                 System.err.println(e); 
         }
-       
+    }
+        //Create the CUSTOMER Table
+    public static void createtable()throws TableException{
+        sqlConn = CommonConnection.getSQLConn();
+        String createString;    
+        java.sql.Statement stmt;        
+      
         try{
-            //Create the CUSTOMER Table
             createString =
             "create table " + CUSTOMER_TABLE_NAME + " " + 
             "(CUSTOMER_ID integer identity (1,1) NOT NULL, " +
@@ -66,7 +71,6 @@ public class CustomerDB {
     
 /**
  * @author Bella Belova
- * @param Cust_ID A unique CustomerDB ID
  * @param FName CustomerDB First Name
  * @param LName CustomerDB Last Name
  * @param BillAddr An integer that except "0" or "1" for checked or unchecked Billing Address
@@ -77,7 +81,7 @@ public class CustomerDB {
  */
     
     //Insert CustomerDB data
-    public static void createCustomer(int Cust_ID, String FName, String LName, int BillAddr, 
+    public static void createCustomer(String FName, String LName, int BillAddr, 
                                         int ShipAddr, String EMail, String PhNbr) 
         throws TableException{
     
@@ -85,9 +89,9 @@ public class CustomerDB {
         try{
 
           String createString = "SET IDENTITY_INSERT " + CUSTOMER_TABLE_NAME + " on insert into " + CUSTOMER_TABLE_NAME + 
-                  " (CUSTOMER_ID, FIRST_NAME, LAST_NAME, BILL_ADDRESS, SHIP_ADDRESS, "
-                  + "EMAIL, PHONE) VALUES(" +
-                    Cust_ID + ", '" + FName + "', '" + LName + "', " + BillAddr + ", " + 
+                  " (FIRST_NAME, LAST_NAME, BILL_ADDRESS, SHIP_ADDRESS, "
+                  + "EMAIL, PHONE) VALUES('" +
+                    FName + "', '" + LName + "', " + BillAddr + ", " + 
                     ShipAddr + ", '" + EMail + "', '" + PhNbr + "');" ;
           stmt = sqlConn.createStatement();
           stmt.executeUpdate(createString);  

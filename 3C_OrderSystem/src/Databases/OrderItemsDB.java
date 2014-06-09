@@ -25,7 +25,7 @@ public class OrderItemsDB {
         sqlConn = CommonConnection.getSQLConn();
     }
     
-    // Drop Table
+    // Drop C_Order_Items Table
     
     public static void droptable()throws TableException{
 		 sqlConn = CommonConnection.getSQLConn();
@@ -41,12 +41,12 @@ public class OrderItemsDB {
                 System.err.println(e); 
         }
 	 }
-	 public static void createtable() throws TableException
-	 {
+    //Create the OrderItemsDB Table
+    public static void createtable() throws TableException{
         String createString;    
         java.sql.Statement stmt;
+        
         try{
-            //Create the OrderItemsDB Table
             createString =
             "create table " + ITEMS_TABLE_NAME + " " + 
             "(ORDER_ITEM_ID integer identity (1,1) NOT NULL, " +

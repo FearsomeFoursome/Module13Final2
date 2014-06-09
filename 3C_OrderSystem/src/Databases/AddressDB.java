@@ -28,9 +28,9 @@ public class AddressDB {
                 
     }
     
-    // Drop Address Table
-    
-    public static void reset()throws TableException{
+    // Drop Address Table 
+    public static void droptable()throws TableException{
+        sqlConn = CommonConnection.getSQLConn();
         String createString;    
         java.sql.Statement stmt;
         
@@ -42,9 +42,14 @@ public class AddressDB {
              if (!(e.getMessage().contains("Unknown")))
                 System.err.println(e); 
         }
+    }
+    
+    //Create the Address Table    
+    public static void createtable() throws TableException{
+        String createString;    
+        java.sql.Statement stmt;
         
         try{
-            //Create the Address Table
             createString =
             "create table " + ADDRESS_TABLE_NAME + " " + 
             "(ADDRESS_ID integer identity (1,1) NOT NULL, " +
@@ -62,7 +67,7 @@ public class AddressDB {
         }        
     }
 
-        //Insert AddressDB data
+    //Insert AddressDB data
     public static void createAddress(int Addr_ID, int Cust_ID, String Addr_Type,
                                         String Addr1, String Addr2, String Addr_City, String Addr_State, String Addr_Zip) 
         throws TableException{
