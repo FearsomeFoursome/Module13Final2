@@ -103,6 +103,10 @@ public class AddressDB {
             }
         }
 
+    /***************************************************************************
+     * DATABASE QUERY FUNCTIONS
+    ***************************************************************************/     
+    
     /**
      * query to retrieve an Address Object by ADDRESS_ID.
      * @param addID Address identifier
