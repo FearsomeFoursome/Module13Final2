@@ -3,8 +3,8 @@
  * "We pledge that we have complied with the AIC in this work."
  *
  * ORDER_ITEMS database class
- * Drop C_ORDER_ITEMS table, Create C_ORDER_ITEMS table, Insert data into C_ORDER_ITEMS table,
- * Queries for the C_ORDER_ITEMS database
+ * Drop C_ITEMS table, Create C_ITEMS table, Insert data into C_ITEMS table,
+ * Queries for the C_ITEMS database
  */
 
 package Databases;

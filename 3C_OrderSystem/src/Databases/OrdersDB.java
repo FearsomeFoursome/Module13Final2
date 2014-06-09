@@ -30,8 +30,11 @@ public class OrdersDB {
         sqlConn = CommonConnection.getSQLConn();
     }
     
-    // Drop Table
-    
+    /**
+     * function to Drop the C_ORDERS table.
+     * @throws Databases.OrdersDB.TableException
+     * @author Bella Belova
+     */
     public static void droptable()throws TableException{
 		 sqlConn = CommonConnection.getSQLConn();
         String createString;    
@@ -46,11 +49,16 @@ public class OrdersDB {
                 System.err.println(e); 
         }
 	 }
-	 public static void createtable() throws TableException{
+    
+    /**
+     * function to Create the C_ORDERS table
+     * @throws Databases.OrdersDB.TableException 
+     * @author Bella Belova
+     */
+    public static void createtable() throws TableException{
         String createString;    
         java.sql.Statement stmt;
         try{
-     //Create the 3C_ORDERS Table
             createString =
             "create table " + ORDERS_TABLE_NAME + " " + 
             "(ORDER_ID integer identity (1,1) NOT NULL, " +
@@ -67,7 +75,16 @@ public class OrdersDB {
         }        
     }
 
-            //Insert Order data
+    /**
+     * function to Insert ORDER row data into the C_ORDERS database.
+     * @param Ord_ID identity code of the order
+     * @param Cust_ID identity code of the Customer associated to the order
+     * @param Fin string for financial information/details
+     * @param Ord_Date date when the order was placed
+     * @param Ord_Total total in U.S. dollars of the Order
+     * @throws Databases.OrdersDB.TableException 
+     * @author Bella Belova
+     */
     public static void createOrder(int Ord_ID, int Cust_ID, String Fin, String Ord_Date, float Ord_Total) 
         throws TableException{
     
@@ -88,6 +105,13 @@ public class OrdersDB {
      * DATABASE QUERY FUNCTIONS
     ***************************************************************************/
     
+    /**
+     * query for all Orders in the C_ORDERS database.
+     * @return an Array List of Orders
+     * @throws Databases.OrdersDB.TableException
+     * @throws Databases.OrdersDB.TableException 
+     * @author Bella Belova
+     */
     public static java.util.ArrayList getAllOrders()
             throws OrdersDB.TableException, TableException{
         int id; String fn; String ln;
@@ -110,7 +134,13 @@ public class OrdersDB {
         return results;
     }  
         
-        // Query to search orders by the ORDER_ID
+    /**
+     * query for all Orders in the C_ORDERS database by ORDER_ID
+     * @param orderID identity code of the order
+     * @return an Array List of Orders
+     * @throws Databases.OrdersDB.TableException
+     * @author Bella Belova
+     */
     public static java.util.ArrayList searchOrdersbyOrderID(int orderID)
             throws TableException{
         int id; String fn; String ln;
