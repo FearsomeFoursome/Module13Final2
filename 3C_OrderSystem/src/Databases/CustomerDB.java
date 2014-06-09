@@ -116,8 +116,7 @@ public class CustomerDB {
         Object p = null;
         Customer results;
         java.sql.ResultSet rs = null;
-        
-        
+             
         try{
           String createString = "select * from " + Databases.CustomerDB.CUSTOMER_TABLE_NAME + " where CUSTOMER_ID " + custID + ";" ;                
           stmt = sqlConn.createStatement();
@@ -125,7 +124,7 @@ public class CustomerDB {
           rs.next();
           results = new Objects.Customer (rs.getInt("CUSTOMER_ID"), rs.getString("FIRST_NAME"), 
                         rs.getString("LAST_NAME"), rs.getString("EMAIL"), rs.getString("PHONE"),
-                        rs.getObject(String "BILL_ADDRESS", Map<String,Address<Address>>), rs.getObject(String "SHIP_ADDRESS", Map<String,Address<Address>>));  
+                        rs.getString("BILL_ADDRESS"), rs.getString("SHIP_ADDRESS"));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to retrieve Customer object." + "\nDetail: " + e);
         } 

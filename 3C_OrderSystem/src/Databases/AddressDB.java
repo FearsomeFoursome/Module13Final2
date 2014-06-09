@@ -5,6 +5,7 @@
 package Databases;
 
 import Control.*;
+import Objects.Address;
 
 
 
@@ -84,6 +85,34 @@ public class AddressDB {
             throw new TableException("Unable to create a new Address in the Database." + "\nDetail: " + e);
         }
     }
+
+    /**
+     * query to retrieve an Address Object by AddressID.
+     * @param addID Address identifier
+     * @return a single Address Object
+     * @throws Databases.AddressDB.TableException 
+     */
+    public static Address getAddressbyID(int addID)
+            throws TableException{
+        int id; String fn; String ln;
+        java.sql.Statement stmt;
+        Object p = null;
+        Address results;
+        java.sql.ResultSet rs = null;
+        
+        try{
+          String createString = "select * from " + Databases.AddressDB.ADDRESS_TABLE_NAME + " where ADDRESS_ID " + addID + ";" ;                
+          stmt = sqlConn.createStatement();
+          rs = stmt.executeQuery(createString);  
+          rs.next();
+          results = new Objects.Address (rs.getInt("ADDRESS_ID"), rs.getString("ADDRESS1"), 
+                        rs.getString("ADDRESS2"), rs.getString("CITY"), rs.getString("STATE"),
+                        rs.getString("ZIP"));  
+        }catch (java.sql.SQLException e){
+            throw new TableException("Unable to retrieve requested Address object." + "\nDetail: " + e);
+        } 
+        return results;
+    }      
     
     public static java.util.ArrayList getAllAddresses()
             throws TableException{
