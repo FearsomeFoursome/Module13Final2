@@ -94,9 +94,7 @@ public class AddressDB {
      */
     public static Address getAddressbyID(int addID)
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         Address results;
         java.sql.ResultSet rs = null;
         

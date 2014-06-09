@@ -5,9 +5,9 @@
 package Databases;
 
 import Control.CommonConnection;
+import static Databases.AddressDB.getAddressbyID;
 import Objects.Address;
 import Objects.Customer;
-import java.util.Map;
 
 
 /**
@@ -111,9 +111,7 @@ public class CustomerDB {
     // Query to retrieve one customer object with the 2 address objects by custID
     public static Customer getCustomerbyID(int custID)
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         Customer results;
         java.sql.ResultSet rs = null;
              
@@ -122,10 +120,15 @@ public class CustomerDB {
           stmt = sqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();
-          results = new Objects.Customer (rs.getInt("CUSTOMER_ID"), rs.getString("FIRST_NAME"), 
-                        rs.getString("LAST_NAME"), rs.getString("EMAIL"), rs.getString("PHONE"),
-                        rs.getString("BILL_ADDRESS"), rs.getString("SHIP_ADDRESS"));  
-        }catch (java.sql.SQLException e){
+          int cID = rs.getInt("CUSTOMER_ID");
+          String fName = rs.getString("FIRST_NAME");
+          String lName = rs.getString("LAST_NAME");
+          String eMail = rs.getString("EMAIL");
+          String phone = rs.getString("PHONE");
+          Address bill = getAddressbyID(rs.getInt("BILL_ADDRESS"));
+          Address ship = getAddressbyID(rs.getInt("SHIP_ADDRESS"));}
+          results = new Objects.Customer (cID, fName, lName, eMail, phone, bill, ship); 
+        }catch (Exception e){
             throw new TableException("Unable to retrieve Customer object." + "\nDetail: " + e);
         } 
         return results;
@@ -134,7 +137,7 @@ public class CustomerDB {
     /************************************************************************
     * update the code rs.get
     *************************************************************************/
-    public static java.util.ArrayList getAllCustomers()
+  /*  public static java.util.ArrayList getAllCustomers()
             throws AddressDB.TableException, TableException{
         int id; String fn; String ln;
         java.sql.Statement stmt;
@@ -142,7 +145,7 @@ public class CustomerDB {
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
         
-        /*
+        
         try{
           String createString = "select * from " + CUSTOMER_TABLE_NAME + ";" ;
           stmt = sqlConn.createStatement();
@@ -154,7 +157,7 @@ public class CustomerDB {
                         rs.getAddress("SHIP_ADDRESS")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Customer Table." + "\nDetail: " + e);
-        } */
+        } 
         return results;
     }
     
@@ -166,7 +169,7 @@ public class CustomerDB {
         Object p = null;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
-        /*
+        
         try{
           String createString = "select * from " + Create_Tables.CustomerDB.CUSTOMER_TABLE_NAME + " where LAST_NAME like '%" + lName + "%';" ;                
           stmt = Create_Tables.CustomerDB.sqlConn.createStatement();
@@ -178,9 +181,8 @@ public class CustomerDB {
                         rs.getAddress("BILL_ADDRESS"), rs.getAddress("SHIP_ADDRESS")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Customer Table." + "\nDetail: " + e);
-        } */
+        } 
         return results;
     }
+   */ 
     
-    
-}
