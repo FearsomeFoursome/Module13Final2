@@ -88,7 +88,7 @@ public class CustomerDB {
     java.sql.Statement stmt;
         try{
 
-          String createString = "SET IDENTITY_INSERT " + CUSTOMER_TABLE_NAME + " on insert into " + CUSTOMER_TABLE_NAME + 
+          String createString = "INSERT INTO " + CUSTOMER_TABLE_NAME + 
                   " (FIRST_NAME, LAST_NAME, BILL_ADDRESS, SHIP_ADDRESS, "
                   + "EMAIL, PHONE) VALUES('" +
                     FName + "', '" + LName + "', " + BillAddr + ", " + 

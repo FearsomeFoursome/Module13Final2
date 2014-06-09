@@ -53,7 +53,6 @@ public class AddressDB {
             createString =
             "create table " + ADDRESS_TABLE_NAME + " " + 
             "(ADDRESS_ID integer identity (1,1) NOT NULL, " +
-            "ADDRESS_TYPE varchar(10) NOT NULL, " +
             "ADDRESS1 varchar(50) NOT NULL, " +
             "ADDRESS2 varchar(50) NULL, " +
             "CITY varchar(50) NOT NULL, " + 
@@ -68,17 +67,16 @@ public class AddressDB {
     }
 
     //Insert AddressDB data
-    public static void createAddress(int Addr_ID, int Cust_ID, String Addr_Type,
-                                        String Addr1, String Addr2, String Addr_City, String Addr_State, String Addr_Zip) 
+    public static void createAddress(String Addr1, String Addr2, 
+                                        String Addr_City, String Addr_State, String Addr_Zip) 
         throws TableException{
     
     java.sql.Statement stmt;
         try{
 
-          String createString = "SET IDENTITY_INSERT " + ADDRESS_TABLE_NAME + " on insert into " + ADDRESS_TABLE_NAME + 
-                  " (ADDRESS_ID, ADDRESS_TYPE, ADDRESS1, ADDRESS2, "
-                  + "CITY, STATE, ZIP) VALUES(" + Addr_ID +", '" + Addr_Type + "', '" + 
-                  Addr1 + "', '" + Addr2 + "', '" + 
+          String createString = "INSERT " + ADDRESS_TABLE_NAME + 
+                  " (ADDRESS1, ADDRESS2, "
+                  + "CITY, STATE, ZIP) VALUES('" + Addr1 + "', '" + Addr2 + "', '" + 
                   Addr_City + "', '" + Addr_State + "', " + Addr_Zip + ");" ;
           stmt = sqlConn.createStatement();
           stmt.executeUpdate(createString);  
