@@ -114,17 +114,18 @@ public class ProductDB {
     public static java.util.ArrayList getAllProducts()
             throws ProductDB.TableException, TableException{
         java.sql.Statement stmt;
-        java.util.ArrayList results = null;
-        java.sql.ResultSet rs = null;
+        java.util.ArrayList results;
+        java.sql.ResultSet rs;
         
         try{
-          String createString = "select * from " + PRODUCT_TABLE_NAME + " ;" ;                
+          String createString = "select * from " + PRODUCT_TABLE_NAME + ";";                
           stmt = mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           results = new java.util.ArrayList();
-            while (rs.next() == true)
+			    while (rs.next() == true){
                 results.add(new Objects.Product (rs.getInt("PROD_ID"), rs.getInt("CATEGORY_ID"), 
                     rs.getString("PROD_NAME"), rs.getString("PROD_DESC"), rs.getFloat("PROD_PRICE")));  
+				}
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Product Table." + "\nDetail: " + e);
             }
@@ -145,7 +146,7 @@ public class ProductDB {
         java.sql.ResultSet rs = null;
         
         try{
-          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
+          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID like " + prodID + ";" ;                
           stmt = mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();
@@ -170,7 +171,7 @@ public class ProductDB {
         java.sql.ResultSet rs = null;
                 
         try{
-          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
+          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID like " + prodID + ";" ;                
           stmt = mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();
