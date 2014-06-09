@@ -49,9 +49,10 @@ public class DataLoad {
   */
 // Customer Table
         try {
-            customer_data.reset();
-            customer_data.createCustomer(10005, "John", "Smith", 1, 2, "bb248141@yahoo.com", "(718)698-9852" );
-            customer_data.createCustomer(10012, "Adam", "Sandler", 1, 2, "sy896325@hotmail.com", "(212)569-7896" );
+            customer_data.droptable();
+            customer_data.createtable();
+            customer_data.createCustomer("John", "Smith", 1, 2, "bb248141@yahoo.com", "(718)698-9852" );
+            customer_data.createCustomer("Adam", "Sandler", 1, 2, "sy896325@hotmail.com", "(212)569-7896" );
             java.util.ArrayList results  = customer_data.getAllCustomers();
             max_index = results.size();
             System.out.println("Customer Table:\n");
@@ -66,9 +67,10 @@ public class DataLoad {
         
         try {
         // Address Table
-            address_data.reset();
-            address_data.createAddress(1, 10005, "home", "45 Jewett St", "Address2", "Brooklyn", "NY", "10314");
-            address_data.createAddress(2, 10012, "home","7A Rockland Ave", "Address2", "New York", "NY", "10003");
+            address_data.droptable();
+            address_data.createtable();
+            address_data.createAddress("45 Jewett St", "Address2", "Brooklyn", "NY", "10314");
+            address_data.createAddress("7A Rockland Ave", "Address2", "New York", "NY", "10003");
             java.util.ArrayList results  = address_data.getAllAddresses();
             max_index = results.size();
             System.out.println("Address Table:\n");
@@ -82,7 +84,8 @@ public class DataLoad {
 
                 // Order Table
         try {
-            orders_data.reset();
+            orders_data.droptable();
+            orders_data.createtable();
             orders_data.createOrder(77777, 10005, "1234567812348965", "12/27/2005", 59.99f);
             orders_data.createOrder(77712, 10012, "7896123645691025", "5/14/1998", 69.99f);
             java.util.ArrayList results  = orders_data.getAllOrders();
@@ -98,7 +101,8 @@ public class DataLoad {
 
         // Item Table
         try {
-            item_order_data.reset();
+            item_order_data.droptable();
+            item_order_data.createtable();
             item_order_data.createItems(12, 77777, 7896, 2, 12.99f);
             item_order_data.createItems(78, 77712, 7589, 6, 10.99f);
             java.util.ArrayList results  = item_order_data.getAllItems();
@@ -114,7 +118,8 @@ public class DataLoad {
 
         // Stock Items
         try {
-            stock_item_data.reset();
+            stock_item_data.droptable();
+            stock_item_data.createtable();
             stock_item_data.createItems(1001, "Hat", 9971);
             stock_item_data.createItems(1002, "T-shirt", 9808);
             stock_item_data.createItems(1003, "T-shirt, black", 10000);
@@ -135,7 +140,8 @@ public class DataLoad {
         
         // Product
         try {
-            product_data.reset();
+            product_data.droptable();
+            product_data.createtable();
             product_data.createProduct(7896, 12, "hat", "red had", 1.25f);
             product_data.createProduct(7589, 78, "gloves", "white gloves", 5.99f);
             java.util.ArrayList results  = product_data.getAllProducts();

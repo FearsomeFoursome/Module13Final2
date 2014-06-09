@@ -5,6 +5,9 @@
 package Databases;
 
 import Control.CommonConnection;
+import Objects.Address;
+import Objects.Customer;
+import java.util.Map;
 
 
 /**
@@ -105,7 +108,30 @@ public class CustomerDB {
     
     
     
-    // Query to retrieve all customers from the Customer database
+    // Query to retrieve one customer object with the 2 address objects by custID
+    public static Customer getCustomerbyID(int custID)
+            throws TableException{
+        int id; String fn; String ln;
+        java.sql.Statement stmt;
+        Object p = null;
+        Customer results;
+        java.sql.ResultSet rs = null;
+        
+        
+        try{
+          String createString = "select * from " + Databases.CustomerDB.CUSTOMER_TABLE_NAME + " where CUSTOMER_ID " + custID + ";" ;                
+          stmt = sqlConn.createStatement();
+          rs = stmt.executeQuery(createString);  
+          rs.next();
+          results = new Objects.Customer (rs.getInt("CUSTOMER_ID"), rs.getString("FIRST_NAME"), 
+                        rs.getString("LAST_NAME"), rs.getString("EMAIL"), rs.getString("PHONE"),
+                        rs.getObject(String "BILL_ADDRESS", Map<String,Address<Address>>), rs.getObject(String "SHIP_ADDRESS", Map<String,Address<Address>>));  
+        }catch (java.sql.SQLException e){
+            throw new TableException("Unable to retrieve Customer object." + "\nDetail: " + e);
+        } 
+        return results;
+    }      
+    
     /************************************************************************
     * update the code rs.get
     *************************************************************************/
