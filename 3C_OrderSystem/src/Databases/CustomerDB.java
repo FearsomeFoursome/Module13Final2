@@ -4,9 +4,7 @@
  */
 package Databases;
 
-import Control.*;
-import static Databases.AddressDB.ADDRESS_TABLE_NAME;
-import static Databases.AddressDB.sqlConn;
+import Control.CommonConnection;
 
 
 /**
@@ -15,7 +13,7 @@ import static Databases.AddressDB.sqlConn;
  */
 public class CustomerDB {
     
-    public static final String CUSTOMER_TABLE_NAME = "3C_CUSTOMERS";
+    public static final String CUSTOMER_TABLE_NAME = "C_CUSTOMERS";
     public static java.sql.Connection sqlConn;
     CommonConnection sql_access;
     public static class TableException extends Exception{
@@ -55,12 +53,10 @@ public class CustomerDB {
             "SHIP_ADDRESS integer NOT NULL, " + 
             "EMAIL varchar(50) NOT NULL, " + 
             "PHONE varchar(13) NULL, " + 
-            "PRIMARY KEY (CUSTOMER_ID))";
-/*                    
-            "FOREIGN KEY (BILL_ADDRESS) REFERENCES 3C_ADDRESS (ADDRESS_ID), " + 
-            "FOREIGN KEY (SHIP_ADDRESS) REFERENCES 3C_ADDRESS (ADDRESS_ID), " + 
-            * 
-            */ 
+            "PRIMARY KEY (CUSTOMER_ID), " +
+            "FOREIGN KEY (BILL_ADDRESS) REFERENCES C_ADDRESS (ADDRESS_ID), " + 
+            "FOREIGN KEY (SHIP_ADDRESS) REFERENCES C_ADDRESS (ADDRESS_ID))";
+
             stmt = sqlConn.createStatement();
             stmt.executeUpdate(createString);
         } catch (java.sql.SQLException e) {
@@ -70,13 +66,13 @@ public class CustomerDB {
     
 /**
  * @author Bella Belova
- * @param CustomerID A unique CustomerDB ID
- * @param FirstName CustomerDB First Name
- * @param LastName CustomerDB Last Name
- * @param BillAddress An integer that except "0" or "1" for checked or unchecked Billing Address
- * @param ShipAddress An integer that except "0" or "1" for checked or unchecked Shipping Address
- * @param EmailAddress CustomerDB EMail Address
- * @param PhoneNumber String field that will except parenthesis and numbers
+ * @param Cust_ID A unique CustomerDB ID
+ * @param FName CustomerDB First Name
+ * @param LName CustomerDB Last Name
+ * @param BillAddr An integer that except "0" or "1" for checked or unchecked Billing Address
+ * @param ShipAddr An integer that except "0" or "1" for checked or unchecked Shipping Address
+ * @param EMail CustomerDB EMail Address
+ * @param PhNbr String field that will except parenthesis and numbers
  * @throws TableException This exception represents a problem with the access and updating of the DB table.
  */
     
@@ -99,6 +95,11 @@ public class CustomerDB {
             throw new TableException("Unable to create a new Customer in the Database." + "\nDetail: " + e);
         }
     }
+
+    // Query to return a customer object w/ address objects within by custID
+    
+    
+    
     
     // Query to retrieve all customers from the Customer database
     /************************************************************************
