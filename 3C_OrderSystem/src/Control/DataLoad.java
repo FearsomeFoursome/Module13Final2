@@ -98,12 +98,12 @@ public class DataLoad {
         }
         // load Orders row data
         try{
-            OrdersDB.createOrder(5001, 2001, "Amex", "06/02/2014", 9.99f);
-            OrdersDB.createOrder(5002, 2002, "Visa", "06/04/2014", 14.99f);
-            OrdersDB.createOrder(5003, 2003, "Master Card", "06/05/2014", 19.99f);
-            OrdersDB.createOrder(5004, 2004, "Visa", "06/06/2014", 24.99f);
-            OrdersDB.createOrder(5005, 2005, "Access Card", "06/07/2014", 29.99f);
-            OrdersDB.createOrder(5006, 2006, "Discover", "06/08/2014", 34.99f);
+            OrdersDB.createOrder(1, "Amex", "06/02/2014", 25.98f);
+            OrdersDB.createOrder(2, "Visa", "06/04/2014", 12.99f);
+            OrdersDB.createOrder(3, "Master Card", "06/05/2014", 29.99f);
+            OrdersDB.createOrder(4, "Visa", "06/06/2014", 38.97f);
+            OrdersDB.createOrder(5, "Access Card", "06/07/2014", 149.95f);
+            OrdersDB.createOrder(6, "Discover", "06/08/2014", 99.90f);
         }catch (Exception Orders){              
             System.err.println(Orders);
         }
@@ -120,12 +120,12 @@ public class DataLoad {
         }
         // load Order_Items row data
         try{
-            OrderItemsDB.createItems(1001, 5001, 1001, 2, 12.99f);
-            OrderItemsDB.createItems(1002, 5002, 1002, 1, 12.99f);
-            OrderItemsDB.createItems(1003, 5003, 1003, 2, 12.99f);
-            OrderItemsDB.createItems(1003, 5004, 1003, 3, 12.99f);
-            OrderItemsDB.createItems(1005, 5005, 1005, 5, 29.99f);
-            OrderItemsDB.createItems(2001, 5006, 2001, 10, 9.99f);
+            OrderItemsDB.createItems(1, 1001, 2, 12.99f);
+            OrderItemsDB.createItems(2, 1002, 1, 12.99f);
+            OrderItemsDB.createItems(3, 1003, 2, 12.99f);
+            OrderItemsDB.createItems(4, 1003, 3, 12.99f);
+            OrderItemsDB.createItems(5, 1005, 5, 29.99f);
+            OrderItemsDB.createItems(6, 2001, 10, 9.99f);
         }catch (Exception OrdItems){              
             System.err.println(OrdItems);
         }

@@ -78,7 +78,6 @@ public class OrderItemsDB {
 
     /**
      * function to Insert Order Item row data into the C_ITEMS table.
-     * @param Ord_Item_ID identification code of the order item
      * @param Ord_ID identification code of the order
      * @param Prod_ID identification code of the product
      * @param QTY quantity of the item in the order
@@ -86,18 +85,18 @@ public class OrderItemsDB {
      * @throws Databases.OrderItemsDB.TableException
      * @author Bella Belova
      */
-    public static void createItems(int Ord_Item_ID, int Ord_ID, int Prod_ID, 
+    public static void createItems(int Ord_ID, int Prod_ID, 
                                   int QTY, float Prod_Price) throws TableException{
         java.sql.Statement stmt;
         
         try{
-          String createString = "SET IDENTITY_INSERT " + ITEMS_TABLE_NAME + " on insert into " + ITEMS_TABLE_NAME + 
-                  " (ORDER_ITEM_ID, ORDER_ID, PRODUCT_ID, QUANTITY, PROD_PRICE ) VALUES(" + Ord_Item_ID + ", "
+          String createString = "insert into " + ITEMS_TABLE_NAME + 
+                  " (ORDER_ID, PRODUCT_ID, QUANTITY, PROD_PRICE ) VALUES("
                    + Ord_ID + ", " + Prod_ID + ", " + QTY  + "," + Prod_Price + " );" ;
           stmt = sqlConn.createStatement();
           stmt.executeUpdate(createString);  
         } catch (java.sql.SQLException e) {
-            throw new TableException("Unable to create a new Address in the Database." + "\nDetail: " + e);
+            throw new TableException("Unable to create a new OrderItem in the Database." + "\nDetail: " + e);
             }
         }
 

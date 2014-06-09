@@ -85,13 +85,13 @@ public class OrdersDB {
      * @throws Databases.OrdersDB.TableException 
      * @author Bella Belova
      */
-    public static void createOrder(int Ord_ID, int Cust_ID, String Fin, String Ord_Date, float Ord_Total) 
+    public static void createOrder(int Cust_ID, String Fin, String Ord_Date, float Ord_Total) 
             throws TableException{
         java.sql.Statement stmt;
         
         try{
-          String createString = "SET IDENTITY_INSERT " + ORDERS_TABLE_NAME + " on insert into " + ORDERS_TABLE_NAME + 
-                  " (ORDER_ID, CUSTOMER_ID, FINANCIAL, ORDER_DATE, ORDER_TOTAL ) VALUES(" + Ord_ID + ", "
+          String createString = "insert into " + ORDERS_TABLE_NAME + 
+                  " (CUSTOMER_ID, FINANCIAL, ORDER_DATE, ORDER_TOTAL ) VALUES("
                    + Cust_ID + ", '" + Fin + "', '" + Ord_Date  + "', " + Ord_Total +  " );" ;
           stmt = sqlConn.createStatement();
           stmt.executeUpdate(createString);  

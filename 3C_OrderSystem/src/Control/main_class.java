@@ -29,6 +29,7 @@ public class main_class
 		DataLoad.dropAllTables();
 		DataLoad.createAllTables();
 		//load data into tables
+		DataLoad.loadTableData();
 		
 		//display main menu
 		System.out.println("Welcome to the store!\n");

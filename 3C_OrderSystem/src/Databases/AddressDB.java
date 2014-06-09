@@ -92,7 +92,7 @@ public class AddressDB {
         java.sql.Statement stmt;
         
         try{
-          String createString = "INSERT " + ADDRESS_TABLE_NAME + 
+          String createString = "INSERT INTO " + ADDRESS_TABLE_NAME + 
                   " (ADDRESS1, ADDRESS2, "
                   + "CITY, STATE, ZIP) VALUES('" + Addr1 + "', '" + Addr2 + "', '" + 
                   Addr_City + "', '" + Addr_State + "', " + Addr_Zip + ");" ;
