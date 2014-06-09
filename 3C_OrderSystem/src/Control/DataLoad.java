@@ -21,9 +21,9 @@ public class DataLoad {
      * @author Scott Young
      */
     public static void connect(){
-        CommonConnection.getMSQLConn();
+        //CommonConnection.getMSQLConn();
         CommonConnection.initialize_Connection_MYSQL();
-        CommonConnection.getSQLConn();
+        //CommonConnection.getSQLConn();
         CommonConnection.initialize_Connection_SQL();
     }
     /**
@@ -32,12 +32,12 @@ public class DataLoad {
      */
     public static void dropAllTables() {
         try{
-        AddressDB.droptable();
-        CustomerDB.droptable();
-        ProductDB.droptable();
-        OrdersDB.droptable();        
-        OrderItemsDB.droptable();
-        StockItemsDB.droptable();
+			  OrderItemsDB.droptable();
+			  OrdersDB.droptable();			  
+			  CustomerDB.droptable();
+			  AddressDB.droptable();			  			   
+			  StockItemsDB.droptable();
+			  ProductDB.droptable();
         }catch(Exception e){          
             System.err.println(e);            
         }
@@ -49,10 +49,10 @@ public class DataLoad {
     public static void createAllTables() {
         try{
         AddressDB.createtable();
-        CustomerDB.createtable();
-        ProductDB.createtable();
+        CustomerDB.createtable();        
         OrdersDB.createtable();        
         OrderItemsDB.createtable();
+		  ProductDB.createtable();
         StockItemsDB.createtable();
         }catch(Exception e){          
             System.err.println(e);            

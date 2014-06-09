@@ -24,12 +24,11 @@ public class main_class
 		Order cart = new Order(custID);
                 
 		//initialize database connections
-		CommonConnection.initialize_Connection_MYSQL();
-		CommonConnection.initialize_Connection_SQL();
+		DataLoad.connect();
 		//initialize tables
-		//drop items, then orders, then customers, then address
-		//create address, then customers, then orders, then items
-		//load data to tables
+		DataLoad.dropAllTables();
+		DataLoad.createAllTables();
+		//load data into tables
 		
 		//display main menu
 		System.out.println("Welcome to the store!\n");
