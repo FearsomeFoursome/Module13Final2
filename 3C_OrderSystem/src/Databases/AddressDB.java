@@ -99,7 +99,7 @@ public class AddressDB {
         java.sql.ResultSet rs = null;
         
         try{
-          String createString = "select * from " + Databases.AddressDB.ADDRESS_TABLE_NAME + " where ADDRESS_ID " + addID + ";" ;                
+          String createString = "select * from " + Databases.AddressDB.ADDRESS_TABLE_NAME + " where ADDRESS_ID='" + addID + "';" ;                
           stmt = sqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();

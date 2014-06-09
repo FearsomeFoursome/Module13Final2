@@ -126,13 +126,14 @@ public class CustomerDB {
           String eMail = rs.getString("EMAIL");
           String phone = rs.getString("PHONE");
           Address bill = getAddressbyID(rs.getInt("BILL_ADDRESS"));
-          Address ship = getAddressbyID(rs.getInt("SHIP_ADDRESS"));}
+          Address ship = getAddressbyID(rs.getInt("SHIP_ADDRESS"));
           results = new Objects.Customer (cID, fName, lName, eMail, phone, bill, ship); 
         }catch (Exception e){
             throw new TableException("Unable to retrieve Customer object." + "\nDetail: " + e);
         } 
         return results;
-    }      
+    } 
+}
     
     /************************************************************************
     * update the code rs.get
