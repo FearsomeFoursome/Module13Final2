@@ -116,18 +116,17 @@ public class OrdersDB {
         java.sql.Statement stmt;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
-        /*
+        
         try{
           String createString = "select * from " + ORDERS_TABLE_NAME + ";" ;                
           stmt = sqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           results = new java.util.ArrayList();
             while (rs.next() == true)
-                results.add(new OrderSystem_Classes.Order (rs.getInt("ORDER_ID"), rs.getInt("CUSTOMER_ID"), 
-                        rs.getString("FINANCIAL"), rs.getString("ORDER_DATE"), rs.getFloat("ORDER_TOTAL")));  
+                results.add(new Objects.Order (rs.getInt("ORDER_ID"), rs.getInt("CUSTOMER_ID")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Order Database." + "\nDetail: " + e);
-            }*/
+            }
         return results;
         }  
         
@@ -143,18 +142,17 @@ public class OrdersDB {
         java.sql.Statement stmt;
         java.util.ArrayList results = null;
         java.sql.ResultSet rs = null;
-        /*
+        
         try{
-          String createString = "select * from " + Create_Tables.OrdersDB.ORDERS_TABLE_NAME + " where ORDER_ID like " + orderID + ";" ;                
-          stmt = Create_Tables.OrdersDB.sqlConn.createStatement();
+          String createString = "select * from " + Databases.OrdersDB.ORDERS_TABLE_NAME + " where ORDER_ID like " + orderID + ";" ;                
+          stmt = Databases.OrdersDB.sqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           results = new java.util.ArrayList();
             while (rs.next() == true)
-                results.add(new OrderSystem_Classes.Order (rs.getInt("ORDER_ID"), rs.getInt("CUSTOMER_ID"), 
-                        rs.getString("FINANCIAL"), rs.getString("ORDER_DATE"), rs.getFloat("ORDER_TOTAL")));  
+                results.add(new Objects.Order (rs.getInt("ORDER_ID"), rs.getInt("CUSTOMER_ID")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Order Database." + "\nDetail: " + e);
-            } */
+            } 
         return results;
         }
     
