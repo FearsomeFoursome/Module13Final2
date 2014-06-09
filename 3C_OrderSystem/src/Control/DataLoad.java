@@ -1,6 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * 3's Company (Amy Roberts, Bella Belova, Scott Young)
+ * "We pledge that we have complied with the AIC in this work."
+ *
+ * Class to load data into the tables
+ * Initialize DB connections 
+ * Drop all tables, Create all tables, Insert data into tables
  */
 package Control;
 
@@ -10,10 +14,133 @@ import Databases.StockItemsDB;
 import Databases.AddressDB;
 import Databases.ProductDB;
 import Databases.OrdersDB;
+
+public class DataLoad {
+    /**
+     * function to get and initialize the connections.
+     * @author Scott Young
+     */
+    public static void connect(){
+        CommonConnection.getMSQLConn();
+        CommonConnection.initialize_Connection_MYSQL();
+        CommonConnection.getSQLConn();
+        CommonConnection.initialize_Connection_SQL();
+    }
+    /**
+     * function to drop all tables.
+     * @author Scott Young
+     */
+    public static void dropAllTables() {
+        try{
+        AddressDB.droptable();
+        CustomerDB.droptable();
+        ProductDB.droptable();
+        OrdersDB.droptable();        
+        OrderItemsDB.droptable();
+        StockItemsDB.droptable();
+        }catch(Exception e){          
+            System.err.println(e);            
+        }
+    }
+    /**
+     * function to create all tables.
+     * @author Scott Young
+     */
+    public static void createAllTables() {
+        try{
+        AddressDB.createtable();
+        CustomerDB.createtable();
+        ProductDB.createtable();
+        OrdersDB.createtable();        
+        OrderItemsDB.createtable();
+        StockItemsDB.createtable();
+        }catch(Exception e){          
+            System.err.println(e);            
+        }        
+    }
+    /**
+     * function to load row data into each table
+     * @author Scott Young
+     */
+    public static void loadTableData() {
+        // load Address row data
+        try{
+            AddressDB.createAddress("1455 Mother of Dragons Ln", "", "Dothraki Valley", "Westeros", "23543");
+            AddressDB.createAddress("997 W. King Slayer Ave.", "", "Kings Landing", "Westeros", "23543");
+            AddressDB.createAddress("45 N. Walker Way", "", "New America", "GA", "23543");
+            AddressDB.createAddress("576 E. PDS St.", "", "Roarton", "Lancashire", "23543");
+            AddressDB.createAddress("1810 S. BubbaGump Pl.", "", "Montgomery", "AL", "23543");
+            AddressDB.createAddress("178 Island Circle", "", "The Island", "UK", "23543");
+        }catch (Exception Address){              
+            System.err.println(Address);
+        }
+        // load Customer row data
+        try{
+            CustomerDB.createCustomer("Daenarys", "Targaryen", 1, 1, "stormborn@dragon.com", "555-444-3333");
+            CustomerDB.createCustomer("Tyrion", "Lanister", 2, 2, "imp@kingslanding.com", "555-666-7777");
+            CustomerDB.createCustomer("Rick", "Grimes", 3, 3, "apocalypse@zombie.com", "555-888-9999");
+            CustomerDB.createCustomer("Kieren", "Walker", 4, 4, "rotten@pds.com", "555-111-2222");
+            CustomerDB.createCustomer("Forrest", "Gump", 5, 5, "run@alabama.edu", "555-222-5555");
+            CustomerDB.createCustomer("Bear", "Grylls", 6, 6, "fdiscovery@g4.com", "555-555-0000");
+        }catch (Exception Customer){              
+            System.err.println(Customer);
+        }
+        // load Product row data
+        try{
+            ProductDB.createProduct(1001, 200, "Hat", "Team USA red, white, and blue hat", 12.99f);
+            ProductDB.createProduct(1002, 300, "T-shirt", "Team USA red, white, and blue t-shirt", 12.99f);
+            ProductDB.createProduct(1003, 300, "T-shirt, black", "Team USA black t-shirt", 12.99f);
+            ProductDB.createProduct(1004, 400, "Key chain", "Team USA Key Chain", 2.95f);
+            ProductDB.createProduct(1005, 500, "Jacket", "Team USA red, white, and blue jacket", 29.99f);
+            ProductDB.createProduct(2001, 601, "Mug", "Team USA red, white, and blue mug", 9.99f);
+        }catch (Exception Product){              
+            System.err.println(Product);
+        }
+        // load Orders row data
+        try{
+            OrdersDB.createOrder(5001, 2001, "Amex", "06/02/2014", 9.99f);
+            OrdersDB.createOrder(5002, 2002, "Visa", "06/04/2014", 14.99f);
+            OrdersDB.createOrder(5003, 2003, "Master Card", "06/05/2014", 19.99f);
+            OrdersDB.createOrder(5004, 2004, "Visa", "06/06/2014", 24.99f);
+            OrdersDB.createOrder(5005, 2005, "Access Card", "06/07/2014", 29.99f);
+            OrdersDB.createOrder(5006, 2006, "Discover", "06/08/2014", 34.99f);
+        }catch (Exception Orders){              
+            System.err.println(Orders);
+        }
+        // load Stock_Items row data
+        try{
+           StockItemsDB.createItems(1001, "Hat", 9971);
+           StockItemsDB.createItems(1002, "T-shirt", 4805);
+           StockItemsDB.createItems(1003, "T-shirt, black", 10000);
+           StockItemsDB.createItems(1004, "Key chain", 0);
+           StockItemsDB.createItems(1005, "Jacket", 10000);
+           StockItemsDB.createItems(2001, "Mug", 10000);
+        }catch (Exception Stock){              
+            System.err.println(Stock);
+        }
+        // load Order_Items row data
+        try{
+            OrderItemsDB.createItems(1001, 5001, 1001, 2, 12.99f);
+            OrderItemsDB.createItems(1002, 5002, 1002, 1, 12.99f);
+            OrderItemsDB.createItems(1003, 5003, 1003, 2, 12.99f);
+            OrderItemsDB.createItems(1003, 5004, 1003, 3, 12.99f);
+            OrderItemsDB.createItems(1005, 5005, 1005, 5, 29.99f);
+            OrderItemsDB.createItems(2001, 5006, 2001, 10, 9.99f);
+        }catch (Exception OrdItems){              
+            System.err.println(OrdItems);
+        }
+    
+    }
+}
+
+
+
 /**
  *
  * @author Bella Belova
  */
+
+/*
 public class DataLoad {
     AddressDB address_data;
     CustomerDB customer_data;
@@ -46,7 +173,7 @@ public class DataLoad {
     Product;
     Stock_Items;
             
-  */
+
 // Customer Table
         try {
             customer_data.droptable();
@@ -155,4 +282,4 @@ public class DataLoad {
             System.err.println(Products);
         }
 }
-}
+}*/
