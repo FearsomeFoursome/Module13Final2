@@ -93,7 +93,6 @@ public class Menu {
 					input = input.toUpperCase();
 					choice = input.charAt(0);
 
-					System.out.println(choice);
 					switch(choice)
 					{
 						//for cases 1-9, get product ID from the product object at the right place
@@ -219,7 +218,6 @@ public class Menu {
 					input = input.toUpperCase();
 					choice = input.charAt(0);
 
-					System.out.println(choice);
 					switch(choice)
 					{
 						case 'B':
@@ -336,7 +334,6 @@ public class Menu {
 				input = input.toUpperCase();
 				choice = input.charAt(0);
 				
-				System.out.println(choice);
 				OrderItem temp;
 				switch(choice)
 				{
@@ -452,8 +449,7 @@ public class Menu {
 				input = brin.readLine();
 				input = input.toUpperCase();
 				choice = input.charAt(0);
-				
-				System.out.println(choice);
+
 				switch(choice)
 				{
 					case '1':
@@ -568,7 +564,6 @@ public class Menu {
 				input = input.toUpperCase();
 				choice = input.charAt(0);
 				
-				System.out.println(choice);
 				switch(choice)
 				{
 					case '1':
@@ -668,7 +663,6 @@ public class Menu {
 					input = input.toUpperCase();
 					choice = input.charAt(0);
 
-					System.out.println(choice);
 					switch(choice)
 					{
 						case '1':

@@ -43,7 +43,6 @@ public class main_class
 				input = input.toUpperCase();
 				choice = input.charAt(0);
 				
-				System.out.println(choice);
 				switch(choice)
 				{
 					case '1':
