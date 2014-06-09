@@ -12,7 +12,7 @@ import Control.CommonConnection;
  */
 public class OrdersDB {
     
-    public static final String ORDERS_TABLE_NAME = "3C_ORDERS";   
+    public static final String ORDERS_TABLE_NAME = "C_ORDERS";   
     public static java.sql.Connection sqlConn;
     CommonConnection sql_access;
     public static class TableException extends Exception{
@@ -51,7 +51,8 @@ public class OrdersDB {
             "FINANCIAL varchar(50) NULL, " +
             "ORDER_DATE varchar(10) NULL, " +
             "ORDER_TOTAL decimal(12,2) NOT NULL, " +
-            "PRIMARY KEY (ORDER_ID))";
+            "PRIMARY KEY (ORDER_ID), " +
+            "FOREIGN KEY (CUSTOMER_ID) REFERENCES C_CUSTOMERS (CUSTOMER_ID))";
             stmt = sqlConn.createStatement();
             stmt.executeUpdate(createString);
         } catch (java.sql.SQLException e) {
