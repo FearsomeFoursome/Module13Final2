@@ -21,41 +21,11 @@ public class CommonConnection {
     private static final String SQLconnectionUrl = "jdbc:sqlserver://localhost";
     private static final String SQLusername = "sa";
     private static final String SQLpassword = "password";
-
-    private static java.sql.Connection dbCon = null;
     
-    
-    
-    public static void initialize_Connection_MYSQL()
-    {
-        try{
-            Class.forName(MYSQLjdbcDriver);
-            
-            try{
-                dbCon = java.sql.DriverManager.getConnection(MYSQLconnectionUrl,MYSQLusername, MYSQLpassword);                
-            } catch (java.sql.SQLException e){System.err.println(e); }
-        }catch(ClassNotFoundException e){
-            System.err.println(e);
-        }
-    }
-    
-    public static void initialize_Connection_SQL() 
-    {      
-        try{
-            Class.forName(SQLjdbcDriver);
-            
-            try{
-                dbCon = java.sql.DriverManager.getConnection(SQLconnectionUrl,SQLusername, SQLpassword);
-            } catch (java.sql.SQLException e){System.err.println(e); }
-        }catch(ClassNotFoundException e){
-            System.err.println(e);
-        }
-    }
-
-    
-    
-
-    
+    /**
+     * 
+     * @return 
+     */
     public  static  java.sql.Connection getSQLConn()
     {
         return sqlConn;
@@ -64,7 +34,33 @@ public class CommonConnection {
     public static java.sql.Connection getMSQLConn()
     {
         return mysqlConn;
-    }
+    }    
+ 
+    /**
+     * @return - not used, commented out
+     */
+    public static void initialize_Connection_MYSQL()
+    {
+            
+            try{
+                mysqlConn = java.sql.DriverManager.getConnection(MYSQLconnectionUrl,MYSQLusername, MYSQLpassword);                
+            } catch (java.sql.SQLException e){System.err.println(e); }
 
+           // return mysqlConn;
+        }
+
+    /**
+     * @return - not used yet, commented out
+     */
+    public static void initialize_Connection_SQL() 
+    {      
+            
+            try{
+                sqlConn = java.sql.DriverManager.getConnection(SQLconnectionUrl,SQLusername, SQLpassword);
+            } catch (java.sql.SQLException e){System.err.println(e); }
+
+            
+          //  return sqlConn;
+        }
+    }
     
-}
