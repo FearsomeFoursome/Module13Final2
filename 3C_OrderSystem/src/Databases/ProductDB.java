@@ -17,7 +17,7 @@ import Objects.Product;
  * @author Bella Belova
  */
 public class ProductDB {
-    
+    // variable declarations
     static final String PRODUCT_TABLE_NAME = "C_PRODUCTS";
     private static java.sql.Connection mysqlConn;
     public static class TableException extends Exception{
@@ -31,11 +31,13 @@ public class ProductDB {
         mysqlConn = CommonConnection.getMSQLConn();
     }
     
-   
-    // Drop any existing C_PRODUCTS Table
-    
+    /**
+     * function to Drop C_PRODUCTS table.
+     * @throws Databases.ProductDB.TableException
+     * @author Bella Belova
+     */
     public static void droptable()throws TableException{
-		 mysqlConn = CommonConnection.getMSQLConn();
+	mysqlConn = CommonConnection.getMSQLConn();
         String createString;    
         java.sql.Statement stmt;
         
@@ -46,13 +48,18 @@ public class ProductDB {
          } catch (java.sql.SQLException e) {
              if (!(e.getMessage().contains("Unknown")))
                 System.err.println(e); 
-        }
+            }
 	 }
-	 public static void createtable() throws TableException{
-        
-		  String createString;    
+    
+    /**
+     * function to Create the C_PRODUCTS table.
+     * @throws Databases.ProductDB.TableException 
+     * @author Bella Belova
+     */
+    public static void createtable() throws TableException{    
+        String createString;    
         java.sql.Statement stmt;
-        //Create the C_PRODUCTS Table
+
         try{
             createString =
             "create table " + PRODUCT_TABLE_NAME + " " + 
@@ -66,10 +73,18 @@ public class ProductDB {
             stmt.executeUpdate(createString);
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create " + PRODUCT_TABLE_NAME + "\nDetail: " + e);
-        }        
-    }
+            }        
+        }
 
-     //Insert new product into C_PRODUCTS database
+    /**
+     * function to Insert Product row data into C_PRODUCTS table.
+     * @param Prod_ID identity code of the Product
+     * @param Categ_ID category identity code of the Product
+     * @param Prod_Name name of the Product
+     * @param Prod_Desc description of the Product
+     * @param Prod_Price price in U.S. dollars of the Product
+     * @throws Databases.ProductDB.TableException 
+     */
     public static void createProduct(int Prod_ID, int Categ_ID, String Prod_Name, String Prod_Desc, float Prod_Price) 
         throws TableException{
     
@@ -90,6 +105,13 @@ public class ProductDB {
      * DATABASE QUERY FUNCTIONS
     ***************************************************************************/    
     
+    /**
+     * query for all Products in the C_PRODUCTS database.
+     * @return
+     * @throws Databases.ProductDB.TableException
+     * @throws Databases.ProductDB.TableException
+     * @author Bella Belova
+     */
     public static java.util.ArrayList getAllProducts()
             throws ProductDB.TableException, TableException{
         int id; String fn; String ln;
@@ -112,20 +134,18 @@ public class ProductDB {
         return results;        
     }
         
-        /**
-         * Query to search for and return a single product from PRODUCT table.
-         * @param prodID Product identification code
-         * @return A Product Name from the PRODUCT table
-         * @throws Databases.ProductDB.TableException 
-         */
+    /**
+    * Query to search for and return a single product from PRODUCT table.
+    * @param prodID Product identification code
+    * @return A Product Name from the PRODUCT table
+    * @throws Databases.ProductDB.TableException
+    * @author Scott Young
+    */
     public static String searchforProductbyID(int prodID)
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         String results = " ";
         java.sql.ResultSet rs = null;
-        
         
         try{
           String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
@@ -144,16 +164,14 @@ public class ProductDB {
      * @param prodID Product identification number
      * @return A Product Object with all column/row data
      * @throws Databases.ProductDB.TableException 
+     * @author Scott Young
      */
     public static Product getProductbyID(int prodID)
             throws TableException{
-        int id; String fn; String ln;
         java.sql.Statement stmt;
-        Object p = null;
         Product results;
         java.sql.ResultSet rs = null;
-        
-        
+                
         try{
           String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
           stmt = mysqlConn.createStatement();
@@ -163,13 +181,17 @@ public class ProductDB {
                         rs.getString("PROD_NAME"), rs.getString("PROD_DESC"), rs.getFloat("PROD_PRICE"));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to create requested Product object." + "\nDetail: " + e);
-        } 
+            } 
         return results;
-    }    
+        }    
     
-    
-
-        // Query to search Products database by PROD_ID & return Array List of Products
+    /**
+     * query to search Products database by PROD_ID.
+     * @param prodID identity code of the Product
+     * @return an Array List of Products
+     * @throws Databases.ProductDB.TableException
+     * @author Bella Belova
+     */
      public static java.util.ArrayList searchProductsbyProductID(String prodID)
             throws TableException{
         int id; String fn; String ln;
@@ -188,10 +210,16 @@ public class ProductDB {
                         rs.getString("PROD_NAME"), rs.getString("PROD_DESC"), rs.getFloat("PROD_PRICE")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Product ID in Product Table." + "\nDetail: " + e);
-        }
+            }
         return results;
- }  
-    // Query for all Products in the C_PRODUCTS database    
+        }  
+
+     /**
+      * query to search all Products in the C_PRODUCTS database.
+      * @return an Array List of all Products & Product row data
+      * @throws Databases.ProductDB.TableException 
+      * @author Bella Belova
+      */
     public static java.util.ArrayList searchALLProducts()
             throws TableException{
         int id; String fn; String ln;
@@ -210,9 +238,8 @@ public class ProductDB {
                         rs.getString("PROD_NAME"), rs.getString("PROD_DESC"), rs.getFloat("PROD_PRICE")));  
         }catch (java.sql.SQLException e){
             throw new TableException("Unable to search Product Table." + "\nDetail: " + e);
-        }
+            }
         return results;        
-    }
-
+        }
 
 }
