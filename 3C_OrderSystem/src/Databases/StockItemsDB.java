@@ -1,13 +1,18 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * 3's Company (Amy Roberts, Bella Belova, Scott Young)
+ * "We pledge that we have complied with the AIC in this work."
+ *
+ * STOCK_ITEMS database class
+ * Drop C_STOCK_ITEMS table, Create C_STOCK_ITEMS table, Insert data into C_STOCK_ITEMS table,
+ * Queries for the C_STOCK_ITEMS database
  */
+
 package Databases;
 
 import Control.*;
 
 /**
- *
+ * StockItemsDB class to drop table, create table, insert & query StockItems database.
  * @author Bella Belova
  */
 public class StockItemsDB {

@@ -1,20 +1,24 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * 3's Company (Amy Roberts, Bella Belova, Scott Young)
+ * "We pledge that we have complied with the AIC in this work."
+ *
+ * ADDRESS database class
+ * Drop C_ADDRESS table, Create C_ADDRESS table, Insert data into C_ADDRESS table,
+ * Queries for the C_ADDRESS database
  */
+
 package Databases;
 
 import Control.*;
 import Objects.Address;
 
-
-
 /**
- *
+ * AddressDB class to drop table, create table, insert & query Address database.
  * @author Bella Belova
  */
 public class AddressDB {
     
+    // declare AddressDB variables
     static final String ADDRESS_TABLE_NAME = "C_ADDRESS";  
     private static java.sql.Connection sqlConn;
     public static class TableException extends Exception{
@@ -25,11 +29,14 @@ public class AddressDB {
     
     public AddressDB()
     {
-        sqlConn = CommonConnection.getSQLConn();
-                
+        sqlConn = CommonConnection.getSQLConn();           
     }
     
-    // Drop Address Table 
+    /**
+     * function to Drop Address Table.
+     * @throws Databases.AddressDB.TableException
+     * @author Bella Belova
+     */
     public static void droptable()throws TableException{
         sqlConn = CommonConnection.getSQLConn();
         String createString;    
@@ -45,7 +52,11 @@ public class AddressDB {
         }
     }
     
-    //Create the Address Table    
+    /**
+     * function to Create the Address Table.
+     * @throws Databases.AddressDB.TableException
+     * @author Bella Belova
+     */
     public static void createtable() throws TableException{
         String createString;    
         java.sql.Statement stmt;
@@ -67,7 +78,16 @@ public class AddressDB {
         }        
     }
 
-    //Insert AddressDB data
+    /**
+     * function to Insert AddressDB data.
+     * @param Addr1 address line 1 data
+     * @param Addr2 address line 2 data
+     * @param Addr_City city for the address provided
+     * @param Addr_State state for the address provided
+     * @param Addr_Zip zip code associated with the address provided
+     * @throws Databases.AddressDB.TableException 
+     * @author Bella Belova
+     */
     public static void createAddress(String Addr1, String Addr2, 
                                         String Addr_City, String Addr_State, String Addr_Zip) 
         throws TableException{
@@ -87,10 +107,11 @@ public class AddressDB {
     }
 
     /**
-     * query to retrieve an Address Object by AddressID.
+     * query to retrieve an Address Object by ADDRESS_ID.
      * @param addID Address identifier
      * @return a single Address Object
-     * @throws Databases.AddressDB.TableException 
+     * @throws Databases.AddressDB.TableException
+     * @author Scott Young
      */
     public static Address getAddressbyID(int addID)
             throws TableException{
@@ -112,6 +133,12 @@ public class AddressDB {
         return results;
     }      
     
+    /**
+     * query to return all Address records from the Address database in an Array List.
+     * @return Array List of Address records
+     * @throws Databases.AddressDB.TableException
+     * @author Bella Belova
+     */
     public static java.util.ArrayList getAllAddresses()
             throws TableException{
         int id; String fn; String ln;
@@ -135,7 +162,13 @@ public class AddressDB {
         return results;
     }
 
-     // Query to search for addresses by ADDRESS_ID
+    /**
+     * Query to retrieve a single Address record from Address database by ADDRESS_ID.
+     * @param addID Address identifier
+     * @return An Address record with all row data from associated columns
+     * @throws Databases.AddressDB.TableException
+     * @author Bella Belova
+     */
     public static java.util.ArrayList searchAddbyCustomerID(int addID)
             throws TableException{
         int id; String fn; String ln;
@@ -157,9 +190,5 @@ public class AddressDB {
         }
         return results;
     }
-
-    
-    
-    
-    
+   
 }

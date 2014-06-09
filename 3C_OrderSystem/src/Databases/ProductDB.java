@@ -1,15 +1,19 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * 3's Company (Amy Roberts, Bella Belova, Scott Young)
+ * "We pledge that we have complied with the AIC in this work."
+ *
+ * PRODUCT database class
+ * Drop C_PRODUCTS table, Create C_PRODUCTS table, Insert data into C_PRODUCTS table,
+ * Queries for the C_PRODUCTS database
  */
+
 package Databases;
 
 import Control.*;
 import Objects.Product;
 
-
 /**
- *
+ * ProductDB class to drop table, create table, insert & query Product database.
  * @author Bella Belova
  */
 public class ProductDB {
@@ -48,7 +52,7 @@ public class ProductDB {
         
 		  String createString;    
         java.sql.Statement stmt;
-        //Create the 3C_PRODUCTS Table
+        //Create the C_PRODUCTS Table
         try{
             createString =
             "create table " + PRODUCT_TABLE_NAME + " " + 
@@ -81,8 +85,12 @@ public class ProductDB {
             throw new TableException("Unable to create a new Order in the Database." + "\nDetail: " + e);
         }
     }
+
+    /***************************************************************************
+     * DATABASE QUERY FUNCTIONS
+    ***************************************************************************/    
     
-        public static java.util.ArrayList getAllProducts()
+    public static java.util.ArrayList getAllProducts()
             throws ProductDB.TableException, TableException{
         int id; String fn; String ln;
         java.sql.Statement stmt;

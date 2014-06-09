@@ -1,13 +1,18 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * 3's Company (Amy Roberts, Bella Belova, Scott Young)
+ * "We pledge that we have complied with the AIC in this work."
+ *
+ * ORDER_ITEMS database class
+ * Drop C_ORDER_ITEMS table, Create C_ORDER_ITEMS table, Insert data into C_ORDER_ITEMS table,
+ * Queries for the C_ORDER_ITEMS database
  */
+
 package Databases;
 
 import Control.*;
 
 /**
- *
+ * OrderItemsDB class to drop table, create table, insert & query OrderItems database.
  * @author Bella Belova
  */
 public class OrderItemsDB {
@@ -80,20 +85,24 @@ public class OrderItemsDB {
             throw new TableException("Unable to create a new Address in the Database." + "\nDetail: " + e);
         }
     }
+
+    /***************************************************************************
+     * DATABASE QUERY FUNCTIONS
+    ***************************************************************************/    
     
-        public static java.util.ArrayList getAllItems()
-            throws OrderItemsDB.TableException, TableException{
-        int id; String fn; String ln;
-        java.sql.Statement stmt;
-        Object p = null;
-        java.util.ArrayList results = null;
-        java.sql.ResultSet rs = null;
+    public static java.util.ArrayList getAllItems()
+        throws OrderItemsDB.TableException, TableException{
+            int id; String fn; String ln;
+            java.sql.Statement stmt;
+            Object p = null;
+            java.util.ArrayList results = null;
+            java.sql.ResultSet rs = null;
         
         try{
-          String createString = "select * from " + ITEMS_TABLE_NAME + ";" ;                
-          stmt = sqlConn.createStatement();
-          rs = stmt.executeQuery(createString);  
-          results = new java.util.ArrayList();
+            String createString = "select * from " + ITEMS_TABLE_NAME + ";" ;                
+            stmt = sqlConn.createStatement();
+            rs = stmt.executeQuery(createString);  
+            results = new java.util.ArrayList();
             while (rs.next() == true)
                 results.add(new Objects.OrderItem (rs.getInt("ORDER_ITEM_ID"), rs.getInt("ORDER_ID"), 
                         rs.getInt("PRODUCT_ID"), rs.getInt("QUANTITY"), rs.getFloat("PROD_PRICE")));  
@@ -101,7 +110,6 @@ public class OrderItemsDB {
             throw new TableException("Unable to search Item Database." + "\nDetail: " + e);
         }
         return results;
-    
         }
 
     // Query to search for Items by ITEM_ID

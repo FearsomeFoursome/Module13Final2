@@ -1,7 +1,12 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * 3's Company (Amy Roberts, Bella Belova, Scott Young)
+ * "We pledge that we have complied with the AIC in this work."
+ *
+ * CUSTOMER database class
+ * Drop C_CUSTOMER table, Create C_CUSTOMER table, Insert data into C_CUSTOMER table,
+ * Queries for the C_CUSTOMER database
  */
+
 package Databases;
 
 import Control.CommonConnection;
@@ -9,9 +14,8 @@ import static Databases.AddressDB.getAddressbyID;
 import Objects.Address;
 import Objects.Customer;
 
-
 /**
- *
+ * CustomerDB class to drop table, create table, insert & query Customer database.
  * @author Bella Belova
  */
 public class CustomerDB {
@@ -29,8 +33,12 @@ public class CustomerDB {
     {
         sqlConn = CommonConnection.getSQLConn();
     }
-    // Drop Customer Table
-    
+
+    /**
+     * function to Drop the C_CUSTOMERS table.
+     * @throws Databases.CustomerDB.TableException
+     * @author Bella Belova
+     */
     public static void droptable()throws TableException{
         sqlConn = CommonConnection.getSQLConn();
         String createString;    
@@ -45,7 +53,12 @@ public class CustomerDB {
                 System.err.println(e); 
         }
     }
-        //Create the CUSTOMER Table
+    
+    /**
+     * function to Create the C_CUSTOMERS table.
+     * @throws Databases.CustomerDB.TableException
+     * @author Bella Belova
+     */
     public static void createtable()throws TableException{
         sqlConn = CommonConnection.getSQLConn();
         String createString;    
@@ -70,45 +83,46 @@ public class CustomerDB {
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create " + CUSTOMER_TABLE_NAME + "\nDetail: " + e);
         }        
-    }
+    }    
     
-/**
- * @author Bella Belova
- * @param FName CustomerDB First Name
- * @param LName CustomerDB Last Name
- * @param BillAddr An integer that except "0" or "1" for checked or unchecked Billing Address
- * @param ShipAddr An integer that except "0" or "1" for checked or unchecked Shipping Address
- * @param EMail CustomerDB EMail Address
- * @param PhNbr String field that will except parenthesis and numbers
- * @throws TableException This exception represents a problem with the access and updating of the DB table.
- */
-    
-    //Insert CustomerDB data
+    /**
+    * function to insert Customer row data into the C_CUSTOMER database.
+    * @param FName First Name of the customer
+    * @param LName Last Name of the customer
+    * @param BillAddr An integer that except "0" or "1" for checked or unchecked Billing Address
+    * @param ShipAddr An integer that except "0" or "1" for checked or unchecked Shipping Address
+    * @param EMail EMail Address of the customer
+    * @param PhNbr Phone Number of the customer
+    * @throws TableException This exception represents a problem with the access and updating of the DB table.
+    * @author Bella Belova
+     */
     public static void createCustomer(String FName, String LName, int BillAddr, 
                                         int ShipAddr, String EMail, String PhNbr) 
-        throws TableException{
-    
-    java.sql.Statement stmt;
+        throws TableException{    
+            java.sql.Statement stmt;
         try{
-
-          String createString = "INSERT INTO " + CUSTOMER_TABLE_NAME + 
+            String createString = "INSERT INTO " + CUSTOMER_TABLE_NAME + 
                   " (FIRST_NAME, LAST_NAME, BILL_ADDRESS, SHIP_ADDRESS, "
-                  + "EMAIL, PHONE) VALUES('" +
-                    FName + "', '" + LName + "', " + BillAddr + ", " + 
-                    ShipAddr + ", '" + EMail + "', '" + PhNbr + "');" ;
-          stmt = sqlConn.createStatement();
-          stmt.executeUpdate(createString);  
+                  + "EMAIL, PHONE) VALUES('" + FName + "', '" + LName + "', " 
+                  + BillAddr + ", " + ShipAddr + ", '" + EMail + "', '" + PhNbr + "');" ;
+            stmt = sqlConn.createStatement();
+            stmt.executeUpdate(createString);  
         } catch (java.sql.SQLException e) {
             throw new TableException("Unable to create a new Customer in the Database." + "\nDetail: " + e);
         }
-    }
+    } 
 
-    // Query to return a customer object w/ address objects within by custID
+    /***************************************************************************
+     * DATABASE QUERY FUNCTIONS
+    ***************************************************************************/    
     
-    
-    
-    
-    // Query to retrieve one customer object with the 2 address objects by custID
+    /**
+     * Query to retrieve one customer object with the 2 address objects by custID.
+     * @param custID Customer identification number
+     * @return a Customer object
+     * @throws Databases.CustomerDB.TableException
+     * @author Scott Young
+     */
     public static Customer getCustomerbyID(int custID)
             throws TableException{
         java.sql.Statement stmt;

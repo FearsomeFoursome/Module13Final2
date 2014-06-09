@@ -1,13 +1,18 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * 3's Company (Amy Roberts, Bella Belova, Scott Young)
+ * "We pledge that we have complied with the AIC in this work."
+ *
+ * ORDERS database class
+ * Drop C_ORDERS table, Create C_ORDERS table, Insert data into C_ORDERS table,
+ * Queries for the C_ORDERS database
  */
+
 package Databases;
 
 import Control.*;
 
 /**
- *
+ * OrdersDB class to drop table, create table, insert & query Orders database.
  * @author Bella Belova
  */
 public class OrdersDB {
@@ -78,8 +83,12 @@ public class OrdersDB {
             throw new TableException("Unable to create a new Order in the Database." + "\nDetail: " + e);
         }
     }
+
+    /***************************************************************************
+     * DATABASE QUERY FUNCTIONS
+    ***************************************************************************/
     
-        public static java.util.ArrayList getAllOrders()
+    public static java.util.ArrayList getAllOrders()
             throws OrdersDB.TableException, TableException{
         int id; String fn; String ln;
         java.sql.Statement stmt;
@@ -123,6 +132,5 @@ public class OrdersDB {
         } */
         return results;
     }
-
-        
+    
 }
