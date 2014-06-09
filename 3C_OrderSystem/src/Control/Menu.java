@@ -93,7 +93,6 @@ public class Menu {
 					input = input.toUpperCase();
 					choice = input.charAt(0);
 
-					System.out.println(choice);
 					switch(choice)
 					{
 						//for cases 1-9, get product ID from the product object at the right place
@@ -104,8 +103,8 @@ public class Menu {
 							product_details(cart, temp.getProductID());
 							break;
 						case '2':
-							//TESTING CASE to actually be able to see product_details
-							product_details(cart, 2);
+							temp = allProducts.get(1);
+							product_details(cart, temp.getProductID());
 							break;
 						case '3':
 							temp = allProducts.get(2);
@@ -219,7 +218,6 @@ public class Menu {
 					input = input.toUpperCase();
 					choice = input.charAt(0);
 
-					System.out.println(choice);
 					switch(choice)
 					{
 						case 'B':
@@ -247,8 +245,9 @@ public class Menu {
 								} //end if
 								else
 								{
+									int quant = choice;
 									//extract prodID, price, prodname from the temporary product object and create new orderitem object
-									OrderItem item = new OrderItem(currentproduct.getProductID(), choice, currentproduct.getProductPrice(), currentproduct.getProductName());
+									OrderItem item = new OrderItem(currentproduct.getProductID(), quant, currentproduct.getProductPrice(), currentproduct.getProductName());
 									cart.addOrderItem(item);
 
 									System.out.println(choice + " products added to order. Please make a menu selection:");
@@ -336,7 +335,6 @@ public class Menu {
 				input = input.toUpperCase();
 				choice = input.charAt(0);
 				
-				System.out.println(choice);
 				OrderItem temp;
 				switch(choice)
 				{
@@ -452,8 +450,7 @@ public class Menu {
 				input = brin.readLine();
 				input = input.toUpperCase();
 				choice = input.charAt(0);
-				
-				System.out.println(choice);
+
 				switch(choice)
 				{
 					case '1':
@@ -468,17 +465,24 @@ public class Menu {
 						{
 							input = brin.readLine();
 							char quant = input.charAt(0);
-							if(quant >= 0 && quant <= 9)
+							if (quant == 0)
 							{
-								//update quantity of item
-								cart.changeQuantity(currentitem.getProductID(), quant);
-								System.out.println("You now have " + quant + " of this item in your cart.");	
-								i = false;
+								cart.removeOrderItem(currentitem.getProductID());
+								System.out.println("This item has been removed from your cart.");
 							} //end if
-							else
-							{
-								System.out.println("Sorry, invalid entry. Please re-enter the quantity of this item you would like.");
-							} //end else
+							else {
+								if(quant >= 1 && quant <= 9)
+								{
+									//update quantity of item
+									cart.changeQuantity(currentitem.getProductID(), quant);
+									System.out.println("You now have " + quant + " of this item in your cart.");	
+									i = false;
+								} //end if
+								else
+								{
+									System.out.println("Sorry, invalid entry. Please re-enter the quantity of this item you would like.");
+								} //end inner else
+							} //end outer else
 						} //end while						
 						break;
 					case 'C':
@@ -561,7 +565,6 @@ public class Menu {
 				input = input.toUpperCase();
 				choice = input.charAt(0);
 				
-				System.out.println(choice);
 				switch(choice)
 				{
 					case '1':
@@ -610,91 +613,96 @@ public class Menu {
 	 */
 	public static void confirm_order(Order current_cart)
 	{
-		returntomain = false;
-		cart = current_cart;
-		System.out.println("Confirm order information:\n");
-		
-		//get customer with ID in cart
-		Customer cust = new Customer();//getcust( cart.getCustomerID());
-		Address bill = cust.getBilling();
-		Address ship = cust.getShipping();
-		
-		System.out.println("Billing address:");
-		System.out.println(bill.getAddress1());
-		
-		//test to see if Address 2 is empty
-		String temp = bill.getAddress2();
-		if(!temp.equals(""))
-		{
-			System.out.println(bill.getAddress2());
-		} //end if
-		
-		System.out.println(bill.getCity() + ", " + bill.getState() + "  " + bill.getZIP() + '\n');
-		
-		System.out.println("Shipping address:");
-		System.out.println(ship.getAddress1());
-		
-		//test to see if Address 2 is empty
-		temp = ship.getAddress2();
-		if(!temp.equals(""))
-		{
-			System.out.println(ship.getAddress2());
-		} //end if
-		
-		System.out.println(ship.getCity() + ", " + ship.getState() + "  " + ship.getZIP() + '\n');
-		
-		System.out.println("1. Place order");
-		System.out.println("2. Correct this information (NOT YET IMPLEMENTED)");
-		System.out.println("M. Main menu");
-		System.out.println("X. Exit program\n");
-		System.out.println("Please make a selection: ");
-		
-		//take user input and switch based on choice
 		try
 		{
-			repeat = true;
-			while(repeat = true) 
+			returntomain = false;
+			cart = current_cart;
+			System.out.println("Confirm order information:\n");
+
+			//get customer with ID in cart
+			Customer cust = Databases.CustomerDB.getCustomerbyID(cart.getCustomerID());
+			Address bill = cust.getBilling();
+			Address ship = cust.getShipping();
+
+			System.out.println("Billing address:");
+			System.out.println(bill.getAddress1());
+
+			//test to see if Address 2 is empty
+			String temp = bill.getAddress2();
+			if(!temp.equals(""))
 			{
-				input = brin.readLine();
-				input = input.toUpperCase();
-				choice = input.charAt(0);
-				
-				System.out.println(choice);
-				switch(choice)
+				System.out.println(bill.getAddress2());
+			} //end if
+
+			System.out.println(bill.getCity() + ", " + bill.getState() + "  " + bill.getZIP() + '\n');
+
+			System.out.println("Shipping address:");
+			System.out.println(ship.getAddress1());
+
+			//test to see if Address 2 is empty
+			temp = ship.getAddress2();
+			if(!temp.equals(""))
+			{
+				System.out.println(ship.getAddress2());
+			} //end if
+
+			System.out.println(ship.getCity() + ", " + ship.getState() + "  " + ship.getZIP() + '\n');
+
+			System.out.println("1. Place order");
+			System.out.println("2. Correct this information (NOT YET IMPLEMENTED)");
+			System.out.println("M. Main menu");
+			System.out.println("X. Exit program\n");
+			System.out.println("Please make a selection: ");
+
+			//take user input and switch based on choice
+			try
+			{
+				repeat = true;
+				while(repeat = true) 
 				{
-					case '1':
-						//place order
-						break;
-					case '2':
-						System.out.println("Sorry, modifying customer addresses is not currently implemented.");
-						System.out.println("Please make another selection.");
-						break;
-					case 'M':
-						main_menu();
-						repeat = false;
-						returntomain = true;
-						break;
-					case 'X':
-						System.out.println("Goodbye! Thank you for shopping with us!");
-						repeat = false;
-						System.exit(0);
-						break;
-					default:
-						System.out.println("Sorry, invalid selection. Please select an option from the menu above: ");
-				} //end switch
-				
-				if(returntomain == true)
-				{
-					return;
-				} //end if
-				
-			} //end while loop
+					input = brin.readLine();
+					input = input.toUpperCase();
+					choice = input.charAt(0);
+
+					switch(choice)
+					{
+						case '1':
+							//place order *********************************
+							break;
+						case '2':
+							System.out.println("Sorry, modifying customer addresses is not currently implemented.");
+							System.out.println("Please make another selection.");
+							break;
+						case 'M':
+							main_menu();
+							repeat = false;
+							returntomain = true;
+							break;
+						case 'X':
+							System.out.println("Goodbye! Thank you for shopping with us!");
+							repeat = false;
+							System.exit(0);
+							break;
+						default:
+							System.out.println("Sorry, invalid selection. Please select an option from the menu above: ");
+					} //end switch
+
+					if(returntomain == true)
+					{
+						return;
+					} //end if
+
+				} //end while loop
+			} //end try
+			catch (Exception e)
+			{
+				System.err.println("Error: " + e);
+			} //end catch
 		} //end try
 		catch (Exception e)
 		{
 			System.err.println("Error: " + e);
 		} //end catch
-		
 	} //end confirm_order
 
 } //end menu class

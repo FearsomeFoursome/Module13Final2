@@ -4,7 +4,6 @@
  */
 package Control;
 
-import Databases.AddressDB;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import Objects.Order;
@@ -25,8 +24,12 @@ public class main_class
 		Order cart = new Order(custID);
                 
 		//initialize database connections
+		DataLoad.connect();
 		//initialize tables
-		//load data to tables
+		DataLoad.dropAllTables();
+		DataLoad.createAllTables();
+		//load data into tables
+		DataLoad.loadTableData();
 		
 		//display main menu
 		System.out.println("Welcome to the store!\n");
@@ -40,7 +43,6 @@ public class main_class
 				input = input.toUpperCase();
 				choice = input.charAt(0);
 				
-				System.out.println(choice);
 				switch(choice)
 				{
 					case '1':
