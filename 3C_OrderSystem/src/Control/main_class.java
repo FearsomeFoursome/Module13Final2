@@ -25,7 +25,10 @@ public class main_class
 		Order cart = new Order(custID);
                 
 		//initialize database connections
+		
 		//initialize tables
+		//drop items, then orders, then customers, then address
+		//create address, then customers, then orders, then items
 		//load data to tables
 		
 		//display main menu

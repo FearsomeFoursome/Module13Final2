@@ -27,7 +27,8 @@ public class OrdersDB {
     
     // Drop Table
     
-    public static void reset()throws TableException{
+    public static void droptable()throws TableException{
+		 sqlConn = CommonConnection.getSQLConn();
         String createString;    
         java.sql.Statement stmt;
         
@@ -39,7 +40,10 @@ public class OrdersDB {
              if (!(e.getMessage().contains("Unknown")))
                 System.err.println(e); 
         }
-        
+	 }
+	 public static void createtable() throws TableException{
+        String createString;    
+        java.sql.Statement stmt;
         try{
      //Create the 3C_ORDERS Table
             createString =

@@ -30,7 +30,8 @@ public class ProductDB {
    
     // Drop any existing C_PRODUCTS Table
     
-    public static void reset()throws TableException{
+    public static void droptable()throws TableException{
+		 mysqlConn = CommonConnection.getMSQLConn();
         String createString;    
         java.sql.Statement stmt;
         
@@ -42,7 +43,11 @@ public class ProductDB {
              if (!(e.getMessage().contains("Unknown")))
                 System.err.println(e); 
         }
+	 }
+	 public static void createtable() throws TableException{
         
+		  String createString;    
+        java.sql.Statement stmt;
         //Create the 3C_PRODUCTS Table
         try{
             createString =

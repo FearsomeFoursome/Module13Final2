@@ -27,7 +27,8 @@ public class StockItemsDB {
     
     
     // Drop C_STOCK_ITEMS Table
-    public static void reset()throws TableException{
+    public static void droptable()throws TableException{
+		 mysqlConn = CommonConnection.getMSQLConn();
         String createString;    
         java.sql.Statement stmt;
         
@@ -39,6 +40,12 @@ public class StockItemsDB {
              if (!(e.getMessage().contains("Unknown")))
                 System.err.println(e); 
         }
+	 }
+	 
+	 public static void createtable() throws TableException{
+		  
+		  String createString;    
+        java.sql.Statement stmt;
     //Create the C_STOCK_ITEMS Table        
         try{
             createString =
