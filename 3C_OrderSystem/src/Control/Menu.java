@@ -245,8 +245,9 @@ public class Menu {
 								} //end if
 								else
 								{
+									int quant = choice;
 									//extract prodID, price, prodname from the temporary product object and create new orderitem object
-									OrderItem item = new OrderItem(currentproduct.getProductID(), choice, currentproduct.getProductPrice(), currentproduct.getProductName());
+									OrderItem item = new OrderItem(currentproduct.getProductID(), quant, currentproduct.getProductPrice(), currentproduct.getProductName());
 									cart.addOrderItem(item);
 
 									System.out.println(choice + " products added to order. Please make a menu selection:");

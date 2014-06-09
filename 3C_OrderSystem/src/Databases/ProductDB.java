@@ -146,7 +146,7 @@ public class ProductDB {
         java.sql.ResultSet rs = null;
         
         try{
-          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
+          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID like " + prodID + ";" ;                
           stmt = mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();
@@ -171,7 +171,7 @@ public class ProductDB {
         java.sql.ResultSet rs = null;
                 
         try{
-          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
+          String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID like " + prodID + ";" ;                
           stmt = mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();

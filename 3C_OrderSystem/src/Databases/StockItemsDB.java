@@ -116,7 +116,7 @@ public class StockItemsDB {
         
         
         try{
-          String createString = "select * from " + Databases.StockItemsDB.STOCK_ITEMS_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
+          String createString = "select * from " + Databases.StockItemsDB.STOCK_ITEMS_TABLE_NAME + " where PROD_ID like " + prodID + ";" ;                
           stmt = Databases.StockItemsDB.mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();
