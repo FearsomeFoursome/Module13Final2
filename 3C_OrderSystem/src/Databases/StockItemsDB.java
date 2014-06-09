@@ -4,7 +4,7 @@
  */
 package Databases;
 
-import Control.CommonConnection;
+import Control.*;
 
 /**
  *
@@ -12,7 +12,7 @@ import Control.CommonConnection;
  */
 public class StockItemsDB {
     
-    public static final String STOCK_ITEMS_TABLE_NAME = "3C_STOCK_ITEMS";
+    public static final String STOCK_ITEMS_TABLE_NAME = "C_STOCK_ITEMS";
     public static java.sql.Connection mysqlConn;
     CommonConnection mysql_access;
     public static class TableException extends Exception{
@@ -23,8 +23,8 @@ public class StockItemsDB {
     
     public StockItemsDB()
     {
-        mysql_access = new CommonConnection();
-        mysqlConn = Control.CommonConnection.getMSQLConn();
+        mysql_access = new CommonConnection(false);
+        mysqlConn = mysql_access.getConnection();
     }
     
     
@@ -41,14 +41,15 @@ public class StockItemsDB {
              if (!(e.getMessage().contains("Unknown")))
                 System.err.println(e); 
         }
-    //Create the 3C_STOCK_ITEMS Table        
+    //Create the C_STOCK_ITEMS Table        
         try{
             createString =
             "create table " + STOCK_ITEMS_TABLE_NAME + " " + 
             "(PROD_ID integer NOT NULL, " +
             "PROD_NAME varchar(40) NULL, " +
             "STOCK_QTY integer NOT NULL, " +
-            "PRIMARY KEY (PROD_ID))";
+            "PRIMARY KEY (PROD_ID), " +
+            "FOREIGN KEY (PROD_ID) REFERENCES C_PRODUCTS (PROD_ID))";
             stmt = mysqlConn.createStatement();
             stmt.executeUpdate(createString);
         } catch (java.sql.SQLException e) {

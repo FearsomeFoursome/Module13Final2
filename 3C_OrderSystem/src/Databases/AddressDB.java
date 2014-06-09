@@ -4,7 +4,7 @@
  */
 package Databases;
 
-import Control.CommonConnection;
+import Control.*;
 
 
 
@@ -14,9 +14,9 @@ import Control.CommonConnection;
  */
 public class AddressDB {
     
-    public static final String ADDRESS_TABLE_NAME = "3C_ADDRESS";  
+    public static final String ADDRESS_TABLE_NAME = "C_ADDRESS";  
     public static java.sql.Connection sqlConn;
-    Control.CommonConnection sql_access;
+    CommonConnection sql_access;
     public static class TableException extends Exception{
         TableException(String s){
             super(s);
@@ -25,12 +25,12 @@ public class AddressDB {
     
     public AddressDB()
     {
-        sql_access = new CommonConnection();
-        sqlConn = Control.CommonConnection.getSQLConn();
+        sql_access = new CommonConnection(true);
+        sqlConn = sql_access.getConnection();
                 
     }
     
-    // Drop Table
+    // Drop Address Table
     
     public static void reset()throws TableException{
         String createString;    
@@ -50,15 +50,13 @@ public class AddressDB {
             createString =
             "create table " + ADDRESS_TABLE_NAME + " " + 
             "(ADDRESS_ID integer identity (1,1) NOT NULL, " +
-            "CUSTOMER_ID integer NOT NULL, " +
             "ADDRESS_TYPE varchar(10) NOT NULL, " +
             "ADDRESS1 varchar(50) NOT NULL, " +
             "ADDRESS2 varchar(50) NULL, " +
             "CITY varchar(50) NOT NULL, " + 
             "STATE varchar(50) NOT NULL, " + 
             "ZIP varchar(10) NOT NULL, " +
-            "PRIMARY KEY (ADDRESS_ID), " + 
-            "FOREIGN KEY (CUSTOMER_ID) REFERENCES 3C_CUSTOMERS (CUSTOMER_ID)) ";
+            "PRIMARY KEY (ADDRESS_ID)) ";
             stmt = sqlConn.createStatement();
             stmt.executeUpdate(createString);
         } catch (java.sql.SQLException e) {
@@ -75,10 +73,10 @@ public class AddressDB {
         try{
 
           String createString = "SET IDENTITY_INSERT " + ADDRESS_TABLE_NAME + " on insert into " + ADDRESS_TABLE_NAME + 
-                  " (ADDRESS_ID, CUSTOMER_ID, ADDRESS_TYPE, ADDRESS1, ADDRESS2, "
-                  + "CITY, STATE, ZIP) VALUES(" + Addr_ID + ", " + 
-                    Cust_ID + ", '" + Addr_Type + "', '" + Addr1 + "', '" + Addr2 + "', '" + 
-                    Addr_City + "', '" + Addr_State + "', " + Addr_Zip + ");" ;
+                  " (ADDRESS_ID, ADDRESS_TYPE, ADDRESS1, ADDRESS2, "
+                  + "CITY, STATE, ZIP) VALUES(" + Addr_ID +", '" + Addr_Type + "', '" + 
+                  Addr1 + "', '" + Addr2 + "', '" + 
+                  Addr_City + "', '" + Addr_State + "', " + Addr_Zip + ");" ;
           stmt = sqlConn.createStatement();
           stmt.executeUpdate(createString);  
         } catch (java.sql.SQLException e) {
@@ -109,8 +107,8 @@ public class AddressDB {
         return results;
     }
 
-     // Query to search for addresses by CUSTOMER_ID
-    public static java.util.ArrayList searchAddbyCustomerID(int custID)
+     // Query to search for addresses by ADDRESS_ID
+    public static java.util.ArrayList searchAddbyCustomerID(int addID)
             throws TableException{
         int id; String fn; String ln;
         java.sql.Statement stmt;
@@ -119,7 +117,7 @@ public class AddressDB {
         java.sql.ResultSet rs = null;
         
         try{
-          String createString = "select * from " + Databases.AddressDB.ADDRESS_TABLE_NAME + " where CUSTOMER_ID like " + custID + ";" ;                
+          String createString = "select * from " + Databases.AddressDB.ADDRESS_TABLE_NAME + " where ADDRESS_ID like " + addID + ";" ;                
           stmt = Databases.AddressDB.sqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           results = new java.util.ArrayList();

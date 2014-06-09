@@ -4,7 +4,7 @@
  */
 package Databases;
 
-import Control.CommonConnection;
+import Control.*;
 
 /**
  *
@@ -12,7 +12,7 @@ import Control.CommonConnection;
  */
 public class OrderItemsDB {
     
-    public static final String ITEMS_TABLE_NAME = "3C_ITEMS";   
+    public static final String ITEMS_TABLE_NAME = "C_ITEMS";   
     public static java.sql.Connection sqlConn;
     CommonConnection sql_access;
     public static class TableException extends Exception{
@@ -23,8 +23,8 @@ public class OrderItemsDB {
     
     public OrderItemsDB()
     {
-        sql_access = new CommonConnection();
-        sqlConn = Control.CommonConnection.getSQLConn();
+        sql_access = new CommonConnection(true);
+        sqlConn = sql_access.getConnection();
     }
     
     // Drop Table
