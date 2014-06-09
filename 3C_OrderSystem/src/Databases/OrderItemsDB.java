@@ -12,9 +12,8 @@ import Control.*;
  */
 public class OrderItemsDB {
     
-    public static final String ITEMS_TABLE_NAME = "C_ITEMS";   
-    public static java.sql.Connection sqlConn;
-    CommonConnection sql_access;
+    static final String ITEMS_TABLE_NAME = "C_ITEMS";   
+    private static java.sql.Connection sqlConn;
     public static class TableException extends Exception{
         TableException(String s){
             super(s);
@@ -23,8 +22,7 @@ public class OrderItemsDB {
     
     public OrderItemsDB()
     {
-        sql_access = new CommonConnection(true);
-        sqlConn = sql_access.getConnection();
+        sqlConn = CommonConnection.getSQLConn();
     }
     
     // Drop Table
@@ -52,7 +50,7 @@ public class OrderItemsDB {
             "QUANTITY integer NOT NULL, " +
             "PROD_PRICE decimal(12,2) NOT NULL, " +
             "PRIMARY KEY (ORDER_ITEM_ID), " +
-            "FOREIGN KEY (ORDER_ID) REFERENCES 3C_ORDERS (ORDER_ID)) ";
+            "FOREIGN KEY (ORDER_ID) REFERENCES C_ORDERS (ORDER_ID)) ";
             stmt = sqlConn.createStatement();
             stmt.executeUpdate(createString);
         } catch (java.sql.SQLException e) {

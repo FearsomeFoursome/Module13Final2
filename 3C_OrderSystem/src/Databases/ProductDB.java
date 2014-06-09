@@ -14,9 +14,8 @@ import Objects.Product;
  */
 public class ProductDB {
     
-    public static final String PRODUCT_TABLE_NAME = "C_PRODUCTS";
-    public static java.sql.Connection mysqlConn;
-    CommonConnection mysql_access;    
+    static final String PRODUCT_TABLE_NAME = "C_PRODUCTS";
+    private static java.sql.Connection mysqlConn;
     public static class TableException extends Exception{
         TableException(String s){
             super(s);
@@ -25,12 +24,11 @@ public class ProductDB {
     
     public ProductDB()
     {
-        mysql_access = new CommonConnection(false);
-        mysqlConn = mysql_access.getConnection();
+        mysqlConn = CommonConnection.getMSQLConn();
     }
     
    
-    // Drop any existing 3C_PRODUCTS Table
+    // Drop any existing C_PRODUCTS Table
     
     public static void reset()throws TableException{
         String createString;    
@@ -118,7 +116,7 @@ public class ProductDB {
         
         try{
           String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
-          stmt = Databases.StockItemsDB.mysqlConn.createStatement();
+          stmt = mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();
                 results = rs.getString("PROD_NAME");  
@@ -145,7 +143,7 @@ public class ProductDB {
         
         try{
           String createString = "select * from " + Databases.ProductDB.PRODUCT_TABLE_NAME + " where PROD_ID " + prodID + ";" ;                
-          stmt = Databases.StockItemsDB.mysqlConn.createStatement();
+          stmt = mysqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();
           results = new Objects.Product (rs.getInt("PROD_ID"), rs.getInt("CATEGORY_ID"), 

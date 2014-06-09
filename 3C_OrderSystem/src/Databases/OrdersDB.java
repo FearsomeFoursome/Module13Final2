@@ -12,9 +12,8 @@ import Control.*;
  */
 public class OrdersDB {
     
-    public static final String ORDERS_TABLE_NAME = "C_ORDERS";   
-    public static java.sql.Connection sqlConn;
-    CommonConnection sql_access;
+    static final String ORDERS_TABLE_NAME = "C_ORDERS";   
+    private static java.sql.Connection sqlConn;
     public static class TableException extends Exception{
         TableException(String s){
             super(s);
@@ -23,8 +22,7 @@ public class OrdersDB {
     
     public OrdersDB()
     {
-        sql_access = new CommonConnection(true);
-        sqlConn = sql_access.getConnection();
+        sqlConn = CommonConnection.getSQLConn();
     }
     
     // Drop Table

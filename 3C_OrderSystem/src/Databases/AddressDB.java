@@ -14,9 +14,8 @@ import Control.*;
  */
 public class AddressDB {
     
-    public static final String ADDRESS_TABLE_NAME = "C_ADDRESS";  
-    public static java.sql.Connection sqlConn;
-    CommonConnection sql_access;
+    static final String ADDRESS_TABLE_NAME = "C_ADDRESS";  
+    private static java.sql.Connection sqlConn;
     public static class TableException extends Exception{
         TableException(String s){
             super(s);
@@ -25,8 +24,7 @@ public class AddressDB {
     
     public AddressDB()
     {
-        sql_access = new CommonConnection(true);
-        sqlConn = sql_access.getConnection();
+        sqlConn = CommonConnection.getSQLConn();
                 
     }
     
@@ -66,7 +64,7 @@ public class AddressDB {
 
         //Insert AddressDB data
     public static void createAddress(int Addr_ID, int Cust_ID, String Addr_Type,
-                                        String Addr1, String Addr2, String Addr_City, String Addr_State, int Addr_Zip) 
+                                        String Addr1, String Addr2, String Addr_City, String Addr_State, String Addr_Zip) 
         throws TableException{
     
     java.sql.Statement stmt;
