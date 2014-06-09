@@ -12,9 +12,8 @@ import Control.*;
  */
 public class StockItemsDB {
     
-    public static final String STOCK_ITEMS_TABLE_NAME = "C_STOCK_ITEMS";
-    public static java.sql.Connection mysqlConn;
-    CommonConnection mysql_access;
+    static final String STOCK_ITEMS_TABLE_NAME = "C_STOCK_ITEMS";
+    private static java.sql.Connection mysqlConn;
     public static class TableException extends Exception{
         TableException(String s){
             super(s);
@@ -23,12 +22,11 @@ public class StockItemsDB {
     
     public StockItemsDB()
     {
-        mysql_access = new CommonConnection(false);
-        mysqlConn = mysql_access.getConnection();
+        mysqlConn = CommonConnection.getMSQLConn();
     }
     
     
-    // Drop 3C_STOCK_ITEMS Table
+    // Drop C_STOCK_ITEMS Table
     public static void reset()throws TableException{
         String createString;    
         java.sql.Statement stmt;

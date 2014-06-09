@@ -67,8 +67,8 @@ public class DataLoad {
         try {
         // Address Table
             address_data.reset();
-            address_data.createAddress(1, 10005, "home", "45 Jewett St", "Address2", "Brooklyn", "NY", 10314);
-            address_data.createAddress(2, 10012, "home","7A Rockland Ave", "Address2", "New York", "NY", 10003);
+            address_data.createAddress(1, 10005, "home", "45 Jewett St", "Address2", "Brooklyn", "NY", "10314");
+            address_data.createAddress(2, 10012, "home","7A Rockland Ave", "Address2", "New York", "NY", "10003");
             java.util.ArrayList results  = address_data.getAllAddresses();
             max_index = results.size();
             System.out.println("Address Table:\n");

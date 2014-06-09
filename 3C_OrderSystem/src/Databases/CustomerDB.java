@@ -24,8 +24,8 @@ public class CustomerDB {
     
     public CustomerDB()
     {
-        sql_access = new CommonConnection(true);
-        sqlConn = sql_access.getConnection();
+    //    sql_access = new CommonConnection(true);
+        sqlConn = CommonConnection.getSQLConn();
     }
     // Drop Table
     
