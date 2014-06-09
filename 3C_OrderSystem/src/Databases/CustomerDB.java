@@ -89,8 +89,8 @@ public class CustomerDB {
     * function to insert Customer row data into the C_CUSTOMER database.
     * @param FName First Name of the customer
     * @param LName Last Name of the customer
-    * @param BillAddr An integer that except "0" or "1" for checked or unchecked Billing Address
-    * @param ShipAddr An integer that except "0" or "1" for checked or unchecked Shipping Address
+    * @param BillAddr An integer that references the ADDRESS_ID of the address
+    * @param ShipAddr An integer that references the ADDRESS_ID of the address
     * @param EMail EMail Address of the customer
     * @param PhNbr Phone Number of the customer
     * @throws TableException This exception represents a problem with the access and updating of the DB table.

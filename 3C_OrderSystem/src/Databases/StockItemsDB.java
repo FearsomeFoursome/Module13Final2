@@ -108,6 +108,10 @@ public class StockItemsDB {
         return results;
     }
 
+    /***************************************************************************
+     * DATABASE QUERY FUNCTIONS
+    ***************************************************************************/        
+        
         /**
          * Query to search Stock Items Database for current Stock Quantity by PROD_ID.
          * @param prodID The product identification number

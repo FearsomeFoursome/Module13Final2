@@ -30,8 +30,11 @@ public class OrderItemsDB {
         sqlConn = CommonConnection.getSQLConn();
     }
     
-    // Drop C_Order_Items Table
-    
+    /**
+     * function to Drop the C_ITEMS table.
+     * @throws Databases.OrderItemsDB.TableException
+     * @author Bella Belova
+     */
     public static void droptable()throws TableException{
 		 sqlConn = CommonConnection.getSQLConn();
         String createString;    
@@ -46,7 +49,12 @@ public class OrderItemsDB {
                 System.err.println(e); 
         }
 	 }
-    //Create the OrderItemsDB Table
+
+    /**
+     * function to Create the C_ITEMS table.
+     * @throws Databases.OrderItemsDB.TableException 
+     * @author Bella Belova
+     */
     public static void createtable() throws TableException{
         String createString;    
         java.sql.Statement stmt;
@@ -68,9 +76,18 @@ public class OrderItemsDB {
         }        
     }
 
-    
-        //Insert OrderItemsDB data
-    public static void createItems(int Ord_Item_ID, int Ord_ID, int Prod_ID, int QTY, float Prod_Price) 
+    /**
+     * function to Insert Order Item row data into the C_ITEMS table.
+     * @param Ord_Item_ID identification code of the order item
+     * @param Ord_ID identification code of the order
+     * @param Prod_ID identification code of the product
+     * @param QTY quantity of the item in the order
+     * @param Prod_Price price of the product
+     * @throws Databases.OrderItemsDB.TableException
+     * @author Bella Belova
+     */
+    public static void createItems(int Ord_Item_ID, int Ord_ID, int Prod_ID, 
+                                                    int QTY, float Prod_Price) 
         throws TableException{
     
     java.sql.Statement stmt;
@@ -90,6 +107,13 @@ public class OrderItemsDB {
      * DATABASE QUERY FUNCTIONS
     ***************************************************************************/    
     
+    /**
+     * query all items in the C_ITEMS database.
+     * @return an Array List of items
+     * @throws Databases.OrderItemsDB.TableException
+     * @throws Databases.OrderItemsDB.TableException 
+     * @author Bella Belova
+     */
     public static java.util.ArrayList getAllItems()
         throws OrderItemsDB.TableException, TableException{
             int id; String fn; String ln;
@@ -112,7 +136,13 @@ public class OrderItemsDB {
         return results;
         }
 
-    // Query to search for Items by ITEM_ID
+    /**
+     * query an item in the C_ITEMS database by ITEM_ID.
+     * @param itemID
+     * @return an Array List of items to match the ITEM_ID
+     * @throws Databases.OrderItemsDB.TableException
+     * @author Bella Belova
+     */
     public static java.util.ArrayList searchItemsbyItemID(int itemID)
             throws TableException{
         int id; String fn; String ln;
@@ -133,10 +163,8 @@ public class OrderItemsDB {
             throw new TableException("Unable to search Item Database." + "\nDetail: " + e);
         }
         return results;
-    
         }
-        
-        
+               
 }
 
 
