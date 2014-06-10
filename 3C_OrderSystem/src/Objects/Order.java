@@ -1,6 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * 3's Company (Amy Roberts, Bella Belova, Scott Young)
+ * "We pledge that we have complied with the AIC in this work."
+ *
+ * Order class to contain data about orders.
+ * Also provides several useful functions for manipulating orders.
  */
 package Objects;
 
@@ -107,7 +110,6 @@ public class Order {
 			if (test == prodID) 
 			{
 				orderItemList.remove(x);
-				System.out.println("Item removed from order."); //to make debugging easier
 			} //end if
 		} //end for		
 	} //end removeOrderItem
