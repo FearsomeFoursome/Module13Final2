@@ -130,7 +130,7 @@ public class CustomerDB {
         java.sql.ResultSet rs = null;
              
         try{
-          String createString = "select * from " + Databases.CustomerDB.CUSTOMER_TABLE_NAME + " where CUSTOMER_ID " + custID + ";" ;                
+          String createString = "select * from " + Databases.CustomerDB.CUSTOMER_TABLE_NAME + " where CUSTOMER_ID like " + custID + ";" ;                
           stmt = sqlConn.createStatement();
           rs = stmt.executeQuery(createString);  
           rs.next();

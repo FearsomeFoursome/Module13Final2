@@ -245,7 +245,7 @@ public class Menu {
 								} //end if
 								else
 								{
-									int quant = choice;
+									int quant = Character.getNumericValue(choice);
 									//extract prodID, price, prodname from the temporary product object and create new orderitem object
 									OrderItem item = new OrderItem(currentproduct.getProductID(), quant, currentproduct.getProductPrice(), currentproduct.getProductName());
 									cart.addOrderItem(item);
@@ -464,14 +464,15 @@ public class Menu {
 						while(i == true)
 						{
 							input = brin.readLine();
-							char quant = input.charAt(0);
+							char quantinput = input.charAt(0);
+							int quant = Character.getNumericValue(quantinput);
 							if (quant == 0)
 							{
 								cart.removeOrderItem(currentitem.getProductID());
 								System.out.println("This item has been removed from your cart.");
 							} //end if
 							else {
-								if(quant >= 1 && quant <= 9)
+								if(quant >= 1)
 								{
 									//update quantity of item
 									cart.changeQuantity(currentitem.getProductID(), quant);
@@ -530,7 +531,7 @@ public class Menu {
 		ArrayList<OrderItem> orderItemList = cart.getOrderItems();
 		
 		//set cart_empty flag and present appropriate message if cart is empty
-		if (0 == orderItemList.size())
+		if (orderItemList.isEmpty())
 		{
 			System.out.println("Your cart is empty!\n");
 			cart_empty = true;
@@ -571,7 +572,7 @@ public class Menu {
 						view_cart(cart);
 						break;
 					case '2':
-						if(cart_empty = false)
+						if(cart_empty == false)
 						{
 							confirm_order(cart);
 						} //end if
@@ -668,6 +669,9 @@ public class Menu {
 					{
 						case '1':
 							//place order *********************************
+							//int confirm = placeOrder(cart);
+							System.out.println("Your order has been placed!");
+							System.out.println("Your confirmation number is: "); // + confirm);
 							break;
 						case '2':
 							System.out.println("Sorry, modifying customer addresses is not currently implemented.");
