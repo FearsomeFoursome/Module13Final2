@@ -16,6 +16,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
+ * A class which holds all of the logic for the program's menus.
+ * <p>
+ * This class contains the text of all user-facing menus, as well as the required
+ * logic to take user input and execute the requested functions.
  *
  * @author Amy Roberts
  */
@@ -46,6 +50,7 @@ public class Menu {
 	
 	/**
 	 * Presents the full catalog for browsing and selection.
+	 * @param current_cart The Order object being used to store the current cart.
 	 */
 	public static void browse_catalog(Order current_cart)
 	{
@@ -79,7 +84,7 @@ public class Menu {
 						  " - " + temp.getProductPrice() + " - " + stockstatus);
 								
 				} //end for	
-			System.out.println("M. Main menu");
+			System.out.println("\nM. Main menu");
 			System.out.println("X. Exit program\n");
 			System.out.println("Which product are you interested in? Please make a selection: ");
 
@@ -169,7 +174,8 @@ public class Menu {
 	
 	/**
 	 * Presents the details on a specific product and allows selecting a quantity to order.
-	 * @param prodID
+	 * @param current_cart The Order object being used to store the current cart.
+	 * @param prodID The ID number of the product the customer has indicated interest in.
 	 */
 	public static void product_details(Order current_cart, int prodID)
 	{
@@ -245,7 +251,7 @@ public class Menu {
 								} //end if
 								else
 								{
-									int quant = choice;
+									int quant = Character.getNumericValue(choice);
 									//extract prodID, price, prodname from the temporary product object and create new orderitem object
 									OrderItem item = new OrderItem(currentproduct.getProductID(), quant, currentproduct.getProductPrice(), currentproduct.getProductName());
 									cart.addOrderItem(item);
@@ -287,7 +293,8 @@ public class Menu {
 	
 	
 	/**
-	 * Presents the current cart.
+	 * Displays the contents of the cart.
+	 * @param current_cart The Order object being used to store the current cart.
 	 */
 	public static void view_cart(Order current_cart)
 	{
@@ -318,7 +325,7 @@ public class Menu {
 			
 		} //end else
 				
-		System.out.println("Current total: $" + cart.calcOrderTotal());
+		System.out.println("\nCurrent total: $" + cart.calcOrderTotal());
 		System.out.println("P. Place order");
 		System.out.println("M. Main menu");
 		System.out.println("X. Exit program\n");
@@ -418,8 +425,9 @@ public class Menu {
 	} //end view_cart
 	
 	/**
-	 * Presents options which allow modifying the quantity of an ordered item or removing it from the cart.
-	 * @param orderItemID 
+	 * Presents options which allow modifying the quantity of an ordered item or removing it from the cart. 
+	 * @param current_cart The Order object being used to store the current cart.
+	 * @param current_item The OrderItem object being modified or removed.
 	 */
 	public static void modify_cart_item(Order current_cart, OrderItem current_item)
 	{
@@ -464,14 +472,15 @@ public class Menu {
 						while(i == true)
 						{
 							input = brin.readLine();
-							char quant = input.charAt(0);
+							char quantinput = input.charAt(0);
+							int quant = Character.getNumericValue(quantinput);
 							if (quant == 0)
 							{
 								cart.removeOrderItem(currentitem.getProductID());
 								System.out.println("This item has been removed from your cart.");
 							} //end if
 							else {
-								if(quant >= 1 && quant <= 9)
+								if(quant >= 1)
 								{
 									//update quantity of item
 									cart.changeQuantity(currentitem.getProductID(), quant);
@@ -518,6 +527,7 @@ public class Menu {
 	
 	/**
 	 * Presents the cart and begins the procedure to finalize an order.
+	 * @param current_cart The Order object being used to store the current cart.
 	 */
 	public static void place_order(Order current_cart)
 	{
@@ -530,7 +540,7 @@ public class Menu {
 		ArrayList<OrderItem> orderItemList = cart.getOrderItems();
 		
 		//set cart_empty flag and present appropriate message if cart is empty
-		if (0 == orderItemList.size())
+		if (orderItemList.isEmpty())
 		{
 			System.out.println("Your cart is empty!\n");
 			cart_empty = true;
@@ -548,7 +558,7 @@ public class Menu {
 			
 		} //end else
 		
-		System.out.println("Current total: $" + cart.calcOrderTotal());
+		System.out.println("\nCurrent total: $" + cart.calcOrderTotal());
 		System.out.println("1. Make changes to this order");
 		System.out.println("2. Place this order");
 		System.out.println("M. Main menu");
@@ -571,7 +581,7 @@ public class Menu {
 						view_cart(cart);
 						break;
 					case '2':
-						if(cart_empty = false)
+						if(cart_empty == false)
 						{
 							confirm_order(cart);
 						} //end if
@@ -610,6 +620,7 @@ public class Menu {
 	
 	/**
 	 * Presents the shipping and billing addresses for confirmation and finalizes the order.
+	 * @param current_cart The Order object being used to store the current cart.
 	 */
 	public static void confirm_order(Order current_cart)
 	{
@@ -668,6 +679,9 @@ public class Menu {
 					{
 						case '1':
 							//place order *********************************
+							//int confirm = placeOrder(cart);
+							System.out.println("Your order has been placed!");
+							System.out.println("Your confirmation number is: "); // + confirm);
 							break;
 						case '2':
 							System.out.println("Sorry, modifying customer addresses is not currently implemented.");

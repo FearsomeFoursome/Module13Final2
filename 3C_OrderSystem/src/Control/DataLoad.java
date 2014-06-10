@@ -21,9 +21,7 @@ public class DataLoad {
      * @author Scott Young
      */
     public static void connect(){
-        //CommonConnection.getMSQLConn();
         CommonConnection.initialize_Connection_MYSQL();
-        //CommonConnection.getSQLConn();
         CommonConnection.initialize_Connection_SQL();
     }
     /**
@@ -32,12 +30,12 @@ public class DataLoad {
      */
     public static void dropAllTables() {
         try{
-			  OrderItemsDB.droptable();
-			  OrdersDB.droptable();			  
-			  CustomerDB.droptable();
-			  AddressDB.droptable();			  			   
-			  StockItemsDB.droptable();
-			  ProductDB.droptable();
+            OrderItemsDB.droptable();
+            OrdersDB.droptable();			  
+            CustomerDB.droptable();
+            AddressDB.droptable();			  			   
+            StockItemsDB.droptable();
+            ProductDB.droptable();
         }catch(Exception e){          
             System.err.println(e);            
         }
@@ -48,12 +46,12 @@ public class DataLoad {
      */
     public static void createAllTables() {
         try{
-        AddressDB.createtable();
-        CustomerDB.createtable();        
-        OrdersDB.createtable();        
-        OrderItemsDB.createtable();
-		  ProductDB.createtable();
-        StockItemsDB.createtable();
+            AddressDB.createtable();
+            CustomerDB.createtable();        
+            OrdersDB.createtable();        
+            OrderItemsDB.createtable();
+            ProductDB.createtable();
+            StockItemsDB.createtable();
         }catch(Exception e){          
             System.err.println(e);            
         }        
@@ -98,12 +96,12 @@ public class DataLoad {
         }
         // load Orders row data
         try{
-            OrdersDB.createOrder(1, "Amex", "06/02/2014", 25.98f);
-            OrdersDB.createOrder(2, "Visa", "06/04/2014", 12.99f);
-            OrdersDB.createOrder(3, "Master Card", "06/05/2014", 29.99f);
-            OrdersDB.createOrder(4, "Visa", "06/06/2014", 38.97f);
-            OrdersDB.createOrder(5, "Access Card", "06/07/2014", 149.95f);
-            OrdersDB.createOrder(6, "Discover", "06/08/2014", 99.90f);
+            OrdersDB.createOrder(1, "06/02/2014", 25.98f);
+            OrdersDB.createOrder(2, "06/04/2014", 12.99f);
+            OrdersDB.createOrder(3, "06/05/2014", 29.99f);
+            OrdersDB.createOrder(4, "06/06/2014", 38.97f);
+            OrdersDB.createOrder(5, "06/07/2014", 149.95f);
+            OrdersDB.createOrder(6, "06/08/2014", 99.90f);
         }catch (Exception Orders){              
             System.err.println(Orders);
         }

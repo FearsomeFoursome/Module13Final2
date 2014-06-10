@@ -11,8 +11,13 @@ import Objects.Order;
  *
  * @author Amy Roberts
  */
-public class main_class 
+public class OrderSystem 
 {
+
+	/**
+	 * The main class and initial logic of this application.
+	 * @param args Command-line arguments.
+	 */
 	public static void main(String[] args)
 	{
 		//variables
