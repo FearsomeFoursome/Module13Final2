@@ -7,7 +7,7 @@ package Objects;
 import java.util.ArrayList;
 
 /**
- *
+ * A class which contains data about orders.
  * @author Amy Roberts
  */
 public class Order {
@@ -17,6 +17,12 @@ public class Order {
 	private float orderTotal;
 	private ArrayList<OrderItem> orderItemList;
 	
+	/**
+	 * A constructor for a new, empty order when only the customer ID is known.
+	 * <p>
+	 * The order ID is temporarily set to 0.
+	 * @param custID The integer identifier of the customer this order is for.
+	 */
 	public Order(int custID)
 	{
 		customerID = custID;
@@ -25,6 +31,13 @@ public class Order {
 		orderTotal = 0;
 	} //end constructor
 	
+	/**
+	 * A constructor for an order being read from the database.
+	 * <p>
+	 * This constructor assumes that the order ID is known from the database.
+	 * @param ordID The unique integer identifier of this order.
+	 * @param custID The unique integer identifier of the customer this order belongs to.
+	 */
 	public Order(int ordID, int custID)
 	{
 		customerID = custID;
@@ -99,6 +112,11 @@ public class Order {
 		} //end for		
 	} //end removeOrderItem
 	
+	/**
+	 * Changes the quantity of an item being ordered.
+	 * @param prodID The product ID of the item to be updated,
+	 * @param quant The new quantity being ordered.
+	 */
 	public void changeQuantity(int prodID, int quant)
 	{
 		OrderItem temp;
@@ -118,6 +136,13 @@ public class Order {
 			
 	} //end changeQuantity
 	
+	/**
+	 * Calculates the total cost of this order.
+	 * <p>
+	 * This method uses the unit price and quantity data stored in the OrderItems
+	 * in the array to calculate the total cost of the order.
+	 * @return The floating-point total cost of this order.
+	 */
 	public float calcOrderTotal()
 	{
 		OrderItem temp;

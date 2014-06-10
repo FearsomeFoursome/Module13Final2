@@ -5,6 +5,10 @@
 package Objects;
 
 /**
+ * This class contains data about order items.
+ * <p>
+ * The data contained includes the number of products ordered, and the unit
+ * price at the time of the order. OrderItems are contained inside Orders.
  *
  * @author Amy Roberts
  */
@@ -17,6 +21,12 @@ public class OrderItem {
     private float unitPrice;
 	 private String productName;
     
+	/**
+	 * A constructor to create empty objects.
+	 * <p>
+	 * This constructor sets all values to defaults. They can be changed later
+	 * with the provided methods.
+	 */
 	public OrderItem()
 	{
 		orderItemID = orderID = productID = itemQuantity = 0;
@@ -24,6 +34,13 @@ public class OrderItem {
 		productName = "";
 	} //end constructor
 
+	/**
+	 * A constructor to create objects which are not yet in the database.
+	 * @param prodID
+	 * @param quant
+	 * @param price
+	 * @param prodname
+	 */
 	public OrderItem(int prodID, int quant, float price, String prodname)
 	{
 		orderItemID = orderID = 0;
@@ -33,8 +50,15 @@ public class OrderItem {
 		productName = prodname;
 	} //end constructor
 	 
-
-	 public OrderItem(int orditemID, int ordID, int prodID, int quant, float price)
+	/**
+	 * A constructor to create objects with data from the database.
+	 * @param orditemID The unique integer identifier of this item in the database.
+	 * @param ordID The unique integer identifier of the order this item belongs to.
+	 * @param prodID The unique integer identifier of the product contained in this item.
+	 * @param quant The quantity of products in this order.
+	 * @param price The unit price of the product in this order.
+	 */
+	public OrderItem(int orditemID, int ordID, int prodID, int quant, float price)
 
 	 {
 		 orderItemID = orditemID;
@@ -127,21 +151,37 @@ public class OrderItem {
 		itemQuantity = quant;
 	} //end setProductQuant
 	
+	/**
+	 * Retrieves the unit price of the product in this item.
+	 * @return The floating-point price of the product.
+	 */
 	public float getProductPrice()
 	{
 		return unitPrice;
 	} //end getProductPrice
 	
+	/**
+	 * Sets or changes the unit price of the product in this object.
+	 * @param price The floating-point price of this product.
+	 */
 	public void setProductPrice(float price)
 	{
 		unitPrice = price;
 	} //end setProductPrice
 	
+	/**
+	 * Retrieves the name of the product in this object.
+	 * @return The product's name.
+	 */
 	public String getProductName()
 	{
 		return productName;
 	} //end getProductName
 	
+	/**
+	 * Sets or changes the product's name.
+	 * @param name The name of the product in this object.
+	 */
 	public void setProductName(String name)
 	{
 		productName = name;
