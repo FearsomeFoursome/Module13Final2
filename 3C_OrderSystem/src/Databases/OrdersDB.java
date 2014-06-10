@@ -10,6 +10,7 @@
 package Databases;
 
 import Control.*;
+import Objects.Order;
 
 /**
  * OrdersDB class to drop table, create table, insert & query Orders database.
@@ -99,6 +100,30 @@ public class OrdersDB {
             }
         }
 
+    /*
+    * accept order object, write the order to the database
+    * get back the order ID
+    * store the order details
+    * orderTotal and CustomerID are in the order
+    */
+    public static int saveOrder(Order ord1)
+            throws TableException{
+        java.sql.Statement stmt;
+        java.util.ArrayList results = null;
+        java.sql.ResultSet rs = null;
+        try{
+          String createString = "insert into " + ORDERS_TABLE_NAME + 
+                  " (ORDER_ID, CUSTOMER_ID, FINANCIAL, ORDER_DATE, ORDER_TOTAL ) VALUES("
+                  + ordID + ", " + Cust_ID + ", '" + Fin + "', '" + Ord_Date  + "', " + Ord_Total +  " );" ;
+          stmt = sqlConn.createStatement();
+          stmt.executeUpdate(createString);  
+        } catch (java.sql.SQLException e) {
+            throw new TableException("Unable to create a new Order in the Database." + "\nDetail: " + e);
+            }
+        return results;
+    }
+    
+    
     /***************************************************************************
      * DATABASE QUERY FUNCTIONS
     ***************************************************************************/
