@@ -77,9 +77,7 @@ public class OrdersDB {
 
     /**
      * function to Insert ORDER row data into the C_ORDERS database.
-     * @param Ord_ID identity code of the order
      * @param Cust_ID identity code of the Customer associated to the order
-     * @param Fin string for financial information/details
      * @param Ord_Date date when the order was placed
      * @param Ord_Total total in U.S. dollars of the Order
      * @throws Databases.OrdersDB.TableException 
@@ -91,7 +89,7 @@ public class OrdersDB {
         
         try{
           String createString = "insert into " + ORDERS_TABLE_NAME + 
-                  " (CUSTOMER_ID, FINANCIAL, ORDER_DATE, ORDER_TOTAL ) VALUES("
+                  " (CUSTOMER_ID, ORDER_DATE, ORDER_TOTAL ) VALUES("
                    + Cust_ID + ", '"  + Ord_Date  + "', " + Ord_Total +  " );" ;
           stmt = sqlConn.createStatement();
           stmt.executeUpdate(createString);  
@@ -100,28 +98,61 @@ public class OrdersDB {
             }
         }
 
-    /*
-    * accept order object, write the order to the database
-    * get back the order ID
-    * store the order details
-    * orderTotal and CustomerID are in the order
-    */
-    public static int saveOrder(Order ord1)
-            throws TableException{
-        java.sql.Statement stmt;
-        java.util.ArrayList results = null;
-        java.sql.ResultSet rs = null;
-        try{
-          String createString = "insert into " + ORDERS_TABLE_NAME + 
-                  " (ORDER_ID, CUSTOMER_ID, FINANCIAL, ORDER_DATE, ORDER_TOTAL ) VALUES("
-                  + ordID + ", " + Cust_ID + ", '" + Fin + "', '" + Ord_Date  + "', " + Ord_Total +  " );" ;
-          stmt = sqlConn.createStatement();
-          stmt.executeUpdate(createString);  
-        } catch (java.sql.SQLException e) {
-            throw new TableException("Unable to create a new Order in the Database." + "\nDetail: " + e);
-            }
-        return results;
-    }
+	/**
+	* Method for saving orders into the database.
+	* <p>
+	* This method writes both order and order item data, to both the Orders
+	* table and the OrderItems table.
+	* @param incord The Order object containing all data about the order to be saved.
+	* @return The order ID, as an integer.
+	* @throws Databases.OrdersDB.TableException 
+	* @author Amy Roberts
+	*/
+	public static int placeOrder(Order incord) 
+	throws TableException{
+		java.sql.Statement stmt;
+		java.sql.ResultSet rs;
+		int orderid;
+		
+		//extract data from the order object
+		Order ord = incord;
+		ArrayList<OrderItem> itemlist = ord.getOrderItems();
+		OrderItem item;
+
+		try
+		{
+			String createString = "insert into " + ORDERS_TABLE_NAME + 
+					" (CUSTOMER_ID, ORDER_DATE, ORDER_TOTAL ) VALUES("	+ ord.getCustomerID() + 
+					", '"  + getDateTime() + "', " + ord.calcOrderTotal() +  " );";
+			stmt = sqlConn.createStatement();
+			
+			//generated keys in this case is the order ID, which is an identity in the table
+			stmt.executeUpdate(createString, stmt.RETURN_GENERATED_KEYS);
+			rs = stmt.getGeneratedKeys();
+			rs.next();
+			orderid = rs.getInt(1);
+
+			try
+			{
+				for(int x = 0; x < itemlist.size(); x++)
+				{
+					item = itemlist.get(x);
+					OrderItemsDB.createItems(orderid, item.getProductID(), item.getProductQuant(), item.getProductPrice());
+				} //end for
+			} //end try
+			catch (OrderItemsDB.TableException e)
+			{
+				System.err.println("Error writing order items: " + e);
+			} //end catch			
+			
+			return orderid;
+
+		} //end try
+		catch (java.sql.SQLException e) 
+		{
+			throw new TableException("Unable to create a new Order in the Database." + "\nDetail: " + e);
+		} //end catch
+	} //end placeOrder
     
     
     /***************************************************************************
