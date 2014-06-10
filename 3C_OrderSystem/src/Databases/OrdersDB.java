@@ -11,6 +11,11 @@ package Databases;
 
 import Control.*;
 import Objects.Order;
+import Objects.OrderItem;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * OrdersDB class to drop table, create table, insert & query Orders database.
@@ -211,4 +216,10 @@ public class OrdersDB {
         return results;
         }
     
+	 private static String getDateTime()
+	 {
+		 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		 Date date = new Date();
+		 return dateFormat.format(date);
+	 }
 }
