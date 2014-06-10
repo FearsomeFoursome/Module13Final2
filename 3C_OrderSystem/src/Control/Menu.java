@@ -79,7 +79,7 @@ public class Menu {
 						  " - " + temp.getProductPrice() + " - " + stockstatus);
 								
 				} //end for	
-			System.out.println("M. Main menu");
+			System.out.println("\nM. Main menu");
 			System.out.println("X. Exit program\n");
 			System.out.println("Which product are you interested in? Please make a selection: ");
 
@@ -318,7 +318,7 @@ public class Menu {
 			
 		} //end else
 				
-		System.out.println("Current total: $" + cart.calcOrderTotal());
+		System.out.println("\nCurrent total: $" + cart.calcOrderTotal());
 		System.out.println("P. Place order");
 		System.out.println("M. Main menu");
 		System.out.println("X. Exit program\n");
@@ -549,7 +549,7 @@ public class Menu {
 			
 		} //end else
 		
-		System.out.println("Current total: $" + cart.calcOrderTotal());
+		System.out.println("\nCurrent total: $" + cart.calcOrderTotal());
 		System.out.println("1. Make changes to this order");
 		System.out.println("2. Place this order");
 		System.out.println("M. Main menu");
