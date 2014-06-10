@@ -6,6 +6,7 @@
 
 package Control;
 
+import static Databases.OrdersDB.*;
 import Objects.Address;
 import Objects.Customer;
 import Objects.Order;
@@ -678,10 +679,9 @@ public class Menu {
 					switch(choice)
 					{
 						case '1':
-							//place order *********************************
-							//int confirm = placeOrder(cart);
+							int confirm = placeOrder(cart);
 							System.out.println("Your order has been placed!");
-							System.out.println("Your confirmation number is: "); // + confirm);
+							System.out.println("Your confirmation number is: " + confirm);
 							break;
 						case '2':
 							System.out.println("Sorry, modifying customer addresses is not currently implemented.");
