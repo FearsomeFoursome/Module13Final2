@@ -16,6 +16,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
+ * A class which holds all of the logic for the program's menus.
+ * <p>
+ * This class contains the text of all user-facing menus, as well as the required
+ * logic to take user input and execute the requested functions.
  *
  * @author Amy Roberts
  */
@@ -46,6 +50,7 @@ public class Menu {
 	
 	/**
 	 * Presents the full catalog for browsing and selection.
+	 * @param current_cart The Order object being used to store the current cart.
 	 */
 	public static void browse_catalog(Order current_cart)
 	{
@@ -169,7 +174,8 @@ public class Menu {
 	
 	/**
 	 * Presents the details on a specific product and allows selecting a quantity to order.
-	 * @param prodID
+	 * @param current_cart The Order object being used to store the current cart.
+	 * @param prodID The ID number of the product the customer has indicated interest in.
 	 */
 	public static void product_details(Order current_cart, int prodID)
 	{
@@ -287,7 +293,8 @@ public class Menu {
 	
 	
 	/**
-	 * Presents the current cart.
+	 * Displays the contents of the cart.
+	 * @param current_cart The Order object being used to store the current cart.
 	 */
 	public static void view_cart(Order current_cart)
 	{
@@ -418,8 +425,9 @@ public class Menu {
 	} //end view_cart
 	
 	/**
-	 * Presents options which allow modifying the quantity of an ordered item or removing it from the cart.
-	 * @param orderItemID 
+	 * Presents options which allow modifying the quantity of an ordered item or removing it from the cart. 
+	 * @param current_cart The Order object being used to store the current cart.
+	 * @param current_item The OrderItem object being modified or removed.
 	 */
 	public static void modify_cart_item(Order current_cart, OrderItem current_item)
 	{
@@ -519,6 +527,7 @@ public class Menu {
 	
 	/**
 	 * Presents the cart and begins the procedure to finalize an order.
+	 * @param current_cart The Order object being used to store the current cart.
 	 */
 	public static void place_order(Order current_cart)
 	{
@@ -611,6 +620,7 @@ public class Menu {
 	
 	/**
 	 * Presents the shipping and billing addresses for confirmation and finalizes the order.
+	 * @param current_cart The Order object being used to store the current cart.
 	 */
 	public static void confirm_order(Order current_cart)
 	{

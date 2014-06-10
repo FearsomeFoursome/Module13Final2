@@ -13,6 +13,11 @@ import Objects.Order;
  */
 public class main_class 
 {
+
+	/**
+	 * The main class and initial logic of this application.
+	 * @param args Command-line arguments.
+	 */
 	public static void main(String[] args)
 	{
 		//variables
