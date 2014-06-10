@@ -11,7 +11,7 @@ import Objects.Order;
  *
  * @author Amy Roberts
  */
-public class main_class 
+public class OrderSystem 
 {
 
 	/**
