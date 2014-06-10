@@ -216,10 +216,18 @@ public class OrdersDB {
         return results;
         }
     
+	 /**
+	  * A method to return the current date as a string.
+	  * <p>
+	  * This method was referenced from stackoverflow.com.
+	  * 
+	  * @return A formatted string containing the current date.
+	  * @author Amy Roberts
+	  */
 	 private static String getDateTime()
 	 {
 		 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		 Date date = new Date();
 		 return dateFormat.format(date);
-	 }
+	 } //end getDateTime
 }
