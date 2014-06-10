@@ -63,7 +63,6 @@ public class OrdersDB {
             "create table " + ORDERS_TABLE_NAME + " " + 
             "(ORDER_ID integer identity (1,1) NOT NULL, " +
             "CUSTOMER_ID integer NOT NULL, " +
-            "FINANCIAL varchar(50) NULL, " +
             "ORDER_DATE varchar(10) NULL, " +
             "ORDER_TOTAL decimal(12,2) NOT NULL, " +
             "PRIMARY KEY (ORDER_ID), " +
@@ -85,14 +84,14 @@ public class OrdersDB {
      * @throws Databases.OrdersDB.TableException 
      * @author Bella Belova
      */
-    public static void createOrder(int Cust_ID, String Fin, String Ord_Date, float Ord_Total) 
+    public static void createOrder(int Cust_ID, String Ord_Date, float Ord_Total) 
             throws TableException{
         java.sql.Statement stmt;
         
         try{
           String createString = "insert into " + ORDERS_TABLE_NAME + 
                   " (CUSTOMER_ID, FINANCIAL, ORDER_DATE, ORDER_TOTAL ) VALUES("
-                   + Cust_ID + ", '" + Fin + "', '" + Ord_Date  + "', " + Ord_Total +  " );" ;
+                   + Cust_ID + ", '"  + Ord_Date  + "', " + Ord_Total +  " );" ;
           stmt = sqlConn.createStatement();
           stmt.executeUpdate(createString);  
         } catch (java.sql.SQLException e) {
