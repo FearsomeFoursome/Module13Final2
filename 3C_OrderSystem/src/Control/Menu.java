@@ -1,11 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 3's Company (Amy Roberts, Bella Belova, Scott Young)
+ * "We pledge that we have complied with the AIC in this work."
+ *
+ * Class containing all of the menu functions and logic
  */
-
 package Control;
 
+import static Databases.OrdersDB.*;
 import Objects.Address;
 import Objects.Customer;
 import Objects.Order;
@@ -243,7 +244,7 @@ public class Menu {
 							System.exit(0);
 							break;
 						default:
-							if(choice >= '0' && choice <= '9')
+							if(choice >= '1' && choice <= '9')
 							{
 								if(stockstatus.equals("out of stock"))
 								{
@@ -265,6 +266,10 @@ public class Menu {
 								System.out.println("X. Exit program\n");
 								System.out.println("What is your selection?");
 							} //end if
+							else if(choice == '0')
+							{
+								System.out.println("You cannot order 0 of a product. Please retry.");
+							}
 							else
 							{
 								System.out.println("Sorry, invalid selection. Please select an option from the menu above or a number of products to order: ");
@@ -477,7 +482,8 @@ public class Menu {
 							if (quant == 0)
 							{
 								cart.removeOrderItem(currentitem.getProductID());
-								System.out.println("This item has been removed from your cart.");
+								System.out.println("This item has been removed from your cart. Please make a menu selection.");
+								i = false;
 							} //end if
 							else {
 								if(quant >= 1)
@@ -678,10 +684,9 @@ public class Menu {
 					switch(choice)
 					{
 						case '1':
-							//place order *********************************
-							//int confirm = placeOrder(cart);
+							int confirm = placeOrder(cart);
 							System.out.println("Your order has been placed!");
-							System.out.println("Your confirmation number is: "); // + confirm);
+							System.out.println("Your confirmation number is: " + confirm);
 							break;
 						case '2':
 							System.out.println("Sorry, modifying customer addresses is not currently implemented.");
